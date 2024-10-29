@@ -57,8 +57,8 @@ public class PlantaDao {
             while (rs.next()) {
                 plantas.add(new Planta(
                     rs.getString("codigo"),
-                    rs.getString("nombre_comun"),
-                    rs.getString("nombre_cientifico")
+                    rs.getString("nombrecomun"),
+                    rs.getString("nombrecientifico")
                 ));
             }
         }
