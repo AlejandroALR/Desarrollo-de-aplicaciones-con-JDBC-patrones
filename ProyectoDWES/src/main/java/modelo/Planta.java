@@ -1,10 +1,14 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Planta {
 	
 	private String codigo;
 	private String nombrecomun;
 	private String nombrecientifico;
+	private List<Ejemplar> ejemplares;
 	
 	public Planta() {}
 	
@@ -13,6 +17,7 @@ public class Planta {
 		this.codigo = codigo;
 		this.nombrecomun = nombrecomun;
 		this.nombrecientifico = nombrecientifico;
+		this.ejemplares = new ArrayList<>();
 	}
 
 	public String getCodigo() {
@@ -38,11 +43,24 @@ public class Planta {
 	public void setNombrecientifico(String nombrecientifico) {
 		this.nombrecientifico = nombrecientifico;
 	}
+	
+    public List<Ejemplar> getEjemplares() {
+        return ejemplares;
+    }
+
+    public void addEjemplar(Ejemplar ejemplar) {
+        this.ejemplares.add(ejemplar);
+    }
 
 	@Override
 	public String toString() {
 		return "Planta [codigo=" + codigo + ", nombrecomun=" + nombrecomun + ", nombrecientifico=" + nombrecientifico
 				+ "]";
+	}
+
+	public int getId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	
