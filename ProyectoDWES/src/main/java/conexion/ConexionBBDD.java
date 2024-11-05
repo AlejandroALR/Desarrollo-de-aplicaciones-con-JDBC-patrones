@@ -1,6 +1,8 @@
 
 package conexion;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -10,8 +12,102 @@ import java.util.Properties;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
+import dao.EjemplarDao;
+import dao.MensajeDao;
+import dao.PersonaDao;
+import dao.PlantaDao;
+
 public class ConexionBBDD {
 
+	private Connection con;
+	
+	private static ConexionBBDD f;
+	
+	public static ConexionBBDD getInstance() {
+		if (f == null)
+			f = new ConexionBBDD();
+		return f;
+	}
+	
+
+	// Patron factory conexion
+	
+	private ConexionBBDD() {
+		Properties prop = new Properties();
+		MysqlDataSource m = new MysqlDataSource();
+		FileInputStream fis;
+		
+		try {
+			fis = new FileInputStream("src/main/resources/db.properties");
+			
+			prop.load(fis);
+			
+			m.setUrl(prop.getProperty("url"));
+			m.setPassword(prop.getProperty("password"));
+			m.setUser(prop.getProperty("user"));
+			
+			con = m.getConnection();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Error al acceder al fichero properties" + e.getMessage());
+		}catch (IOException e) {
+			System.out.println("Error al leer las propiedades del fiechro properties" + e.getMessage());
+		}catch (SQLException e) {
+			System.out.println("Error al conectar a la base de datos: usuarios, password....");
+		}
+	}
+	
+	public PlantaDao getPlantaDao() {
+		return new PlantaDao(con);
+	}
+	
+	/*
+	public EjemplarDao getEjemplarDao() {
+		return new EjemplarDao(con);
+	}
+	
+	public MensajeDao getMensajeDao() {
+		return new MensajeDao(con);
+	}
+	
+	public PersonaDao getPersonaDao() {
+		return new PersonaDao(con);
+	}
+	*/
+
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/*
 	private static String URL;
 	private static String USUARIO;
 	private static String PASS;
@@ -45,5 +141,5 @@ public class ConexionBBDD {
 		m.setPassword(PASS);
 		return m.getConnection();
 	}
+*/
 
-}

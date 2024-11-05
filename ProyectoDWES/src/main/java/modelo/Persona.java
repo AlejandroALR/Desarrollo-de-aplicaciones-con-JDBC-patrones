@@ -1,20 +1,16 @@
 package modelo;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Persona {
     private Long id;
     private String nombre;
     private String email;
     private Credenciales credenciales;
-    private List<Ejemplar> ejemplaresSeguidos;
 
     public Persona(Long id, String nombre, String email) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
-        this.ejemplaresSeguidos = new ArrayList<>();
     }
 
     public Long getId() {
@@ -48,13 +44,10 @@ public class Persona {
     public void setCredenciales(Credenciales credenciales) {
         this.credenciales = credenciales;
     }
-
-    public List<Ejemplar> getEjemplaresSeguidos() {
-        return ejemplaresSeguidos;
-    }
-
-    public void addEjemplarSeguido(Ejemplar ejemplar) {
-        this.ejemplaresSeguidos.add(ejemplar);
-    }
+    
+	@Override
+	public String toString() {
+		return "Persona [id=" + id + ", nombre=" + nombre + ", email=" + email + "]";
+	}
 }
 

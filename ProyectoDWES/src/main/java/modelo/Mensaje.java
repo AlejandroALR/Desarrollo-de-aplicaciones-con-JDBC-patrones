@@ -8,6 +8,8 @@ public class Mensaje {
     private String mensaje;
     private Persona persona;
     private Ejemplar ejemplar;
+    
+	public Mensaje() {}
 
     public Mensaje(Long id, LocalDateTime fechaHora, String mensaje, Persona persona, Ejemplar ejemplar) {
         this.id = id;

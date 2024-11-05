@@ -13,55 +13,55 @@ import modelo.Planta;
 
 public class PlantaDao {
 	private Connection connection;
+	private PreparedStatement ps;
+	private ResultSet rs;
 	
-    public void PlantaDAO(Connection connection) {
-    	this.connection = connection;
+    public PlantaDao(Connection con) {
+    	this.connection = con;
     }
 
-	public static void añadirPlanta (Planta planta) {
-		String sql = "INSERT INTO plantas(codigo, nombrecomun, nombrecientifico) VALUES (?, ?, ?)";
-		try (PreparedStatement pstmt = ConexionBBDD.getConnection().prepareStatement(sql)) {
-		    pstmt.setString(1, planta.getCodigo()); 
-		    pstmt.setString(2, planta.getNombrecomun());
-		    pstmt.setString(3, planta.getNombrecientifico());
-		    
-		    pstmt.executeUpdate(); 
-		} catch (SQLException e) {
-		    e.printStackTrace(); 
-		}
-	}
-	
-    public void actualizarPlanta(Planta planta) throws SQLException {
-        String sql = "UPDATE Plantas SET nombre_comun = ?, nombre_cientifico = ? WHERE codigo = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, planta.getNombrecomun());
-            stmt.setString(2, planta.getNombrecientifico());
-            stmt.setString(3, planta.getCodigo());
-            stmt.executeUpdate();
-        }
-    }
-	
-    public void eliminarPlanta(int id) throws SQLException {
-        String sql = "DELETE FROM Plantas WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-        }
+    public int insertar(Planta p) {
+    	try {
+    		ps = connection.prepareStatement("insert into plantas (codigo, nombrecomun, nombrecientifico) values(?,?,?)");
+    		ps.setString(1, p.getCodigo());
+    		ps.setString(2, p.getNombrecomun());
+    		ps.setString(3, p.getNombrecientifico());
+    		return ps.executeUpdate();
+    	}catch (SQLException e) {
+    		System.out.println("Error al insertar en plantas" + e.getMessage());
+    	}
+    	return 0;
     }
     
-    public List<Planta> obtenerTodasLasPlantas() throws SQLException {
-        List<Planta> plantas = new ArrayList<>();
-        String sql = "SELECT * FROM Plantas";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                plantas.add(new Planta(
-                    rs.getString("codigo"),
-                    rs.getString("nombrecomun"),
-                    rs.getString("nombrecientifico")
-                ));
-            }
-        }
-        return plantas;
+    public int modificar(Planta p) {
+    	return 0;
     }
+    
+    public int eliminar(Planta ej) {
+    	try {
+    		ps = connection.prepareStatement("delete from plantas where codigo=?");
+    		ps.setString(1, ej.getCodigo());
+    		return ps.executeUpdate();
+    	}catch(SQLException e) {
+    		System.out.println("Error al eliminar la planta " + e.getMessage());
+    	}
+    	return 0;
+    }
+    
+    public Planta findByCodigo(String cod) {
+    	return null;
+    }
+    
+    public List<Planta> findAll(){
+    	return null;
+    }
+    
+    public ArrayList <Planta> findByNombreComun(String nombre){
+    	return null;
+	}
+    
+    public ArrayList <Planta> findByNombreCientifico(String nombre){
+    	return null;
+	}
+    
 }
