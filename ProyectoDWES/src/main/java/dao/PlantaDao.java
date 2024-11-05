@@ -12,17 +12,17 @@ import conexion.ConexionBBDD;
 import modelo.Planta;
 
 public class PlantaDao {
-	private Connection connection;
+	private Connection con;
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
     public PlantaDao(Connection con) {
-    	this.connection = con;
+    	this.con = con;
     }
 
     public int insertar(Planta p) {
     	try {
-    		ps = connection.prepareStatement("insert into plantas (codigo, nombrecomun, nombrecientifico) values(?,?,?)");
+    		ps = con.prepareStatement("insert into plantas (codigo, nombrecomun, nombrecientifico) values(?,?,?)");
     		ps.setString(1, p.getCodigo());
     		ps.setString(2, p.getNombrecomun());
     		ps.setString(3, p.getNombrecientifico());
@@ -37,10 +37,10 @@ public class PlantaDao {
     	return 0;
     }
     
-    public int eliminar(Planta ej) {
+    public int eliminar(Planta p) {
     	try {
-    		ps = connection.prepareStatement("delete from plantas where codigo=?");
-    		ps.setString(1, ej.getCodigo());
+    		ps = con.prepareStatement("delete from plantas where codigo=?");
+    		ps.setString(1, p.getCodigo());
     		return ps.executeUpdate();
     	}catch(SQLException e) {
     		System.out.println("Error al eliminar la planta " + e.getMessage());

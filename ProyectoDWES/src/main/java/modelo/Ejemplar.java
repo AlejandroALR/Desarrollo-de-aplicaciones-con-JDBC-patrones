@@ -6,11 +6,11 @@ import java.util.List;
 public class Ejemplar {
     private Long id;
     private String nombre;
-    private Planta planta;
+    private String planta;
     private List<Persona> seguidores;
     private List<Mensaje> mensajes;
 
-    public Ejemplar(Long id, String nombre, Planta planta) {
+    public Ejemplar(Long id, String nombre, String planta) {
         this.id = id;
         this.nombre = nombre;
         this.planta = planta;
@@ -34,11 +34,11 @@ public class Ejemplar {
         this.nombre = nombre;
     }
 
-    public Planta getPlanta() {
+    public String getPlanta() {
         return planta;
     }
 
-    public void setPlanta(Planta planta) {
+    public void setPlanta(String planta) {
         this.planta = planta;
     }
 

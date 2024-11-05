@@ -7,11 +7,11 @@ import modelo.Planta;
 public class ServiciosPlanta {
 	
 	private ConexionBBDD con;
-	private PlantaDao plantaDAO;
+	private PlantaDao PlantaDao;
 	
 	public ServiciosPlanta() {
 		con=ConexionBBDD.getInstance();
-		plantaDAO=(PlantaDao) con.getPlantaDao();
+		PlantaDao=(PlantaDao) con.getPlantaDao();
 	}
 	
 	public boolean validarPlanta(Planta p) {
@@ -23,7 +23,7 @@ public class ServiciosPlanta {
 	}
 	
 	public int insertar(Planta e) {
-		return plantaDAO.insertar(e);
+		return PlantaDao.insertar(e);
 	}	
 	
 }

@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
+import dao.CredencialesDao;
 import dao.EjemplarDao;
 import dao.MensajeDao;
 import dao.PersonaDao;
@@ -61,6 +62,14 @@ public class ConexionBBDD {
 		return new PlantaDao(con);
 	}
 	
+	public PersonaDao getPersonaDao() {
+		return new PersonaDao(con);
+	}
+	
+	public CredencialesDao getCredencialesDao() {
+		return new CredencialesDao(con);
+	}
+	
 	/*
 	public EjemplarDao getEjemplarDao() {
 		return new EjemplarDao(con);
@@ -69,11 +78,8 @@ public class ConexionBBDD {
 	public MensajeDao getMensajeDao() {
 		return new MensajeDao(con);
 	}
-	
-	public PersonaDao getPersonaDao() {
-		return new PersonaDao(con);
-	}
 	*/
+
 
 }
 	
