@@ -9,8 +9,9 @@ public class Controlador {
 	private ServiciosMensaje servMensaje;
 	
 	public static Controlador getServicios() {
-		if(servicios == null)
+		if(servicios == null) {
 			servicios = new Controlador();
+		}
 		return servicios;
 	}
 	

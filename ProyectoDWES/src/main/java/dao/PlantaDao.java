@@ -20,7 +20,7 @@ public class PlantaDao {
     	this.con = con;
     }
 
-    public int insertar(Planta p) {
+    public int insertarPlanta(Planta p) {
     	try {
     		ps = con.prepareStatement("insert into plantas (codigo, nombrecomun, nombrecientifico) values(?,?,?)");
     		ps.setString(1, p.getCodigo());
@@ -33,11 +33,11 @@ public class PlantaDao {
     	return 0;
     }
     
-    public int modificar(Planta p) {
+    public int modificarPlanta(Planta p) {
     	return 0;
     }
     
-    public int eliminar(Planta p) {
+    public int eliminarPlanta(Planta p) {
     	try {
     		ps = con.prepareStatement("delete from plantas where codigo=?");
     		ps.setString(1, p.getCodigo());
@@ -47,6 +47,24 @@ public class PlantaDao {
     	}
     	return 0;
     }
+    
+    public Planta obtenerPlantaPorCodigo(String codigo) throws SQLException {
+        String query = "SELECT * FROM plantas WHERE codigo = ?";
+        try (PreparedStatement statement = con.prepareStatement(query)) {
+            statement.setString(1, codigo);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Planta(
+                    resultSet.getString("codigo"),
+                    resultSet.getString("nombrecomun"),
+                    resultSet.getString("nombrecientifico")
+                );
+            }
+        }
+        return null;
+    }
+    
+    
     
     public Planta findByCodigo(String cod) {
     	return null;

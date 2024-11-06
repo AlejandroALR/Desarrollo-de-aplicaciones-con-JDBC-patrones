@@ -11,12 +11,12 @@ public class Mensaje {
     
 	public Mensaje() {}
 
-    public Mensaje(Long id, LocalDateTime fechaHora, String mensaje, Persona persona, Ejemplar ejemplar) {
+    public Mensaje(Long id, String mensaje, Persona persona, Ejemplar ejemplar) {
         this.id = id;
-        this.fechaHora = fechaHora;
         this.mensaje = mensaje;
         this.persona = persona;
         this.ejemplar = ejemplar;
+        this.fechaHora = LocalDateTime.now();
     }
 
     

@@ -1,22 +1,12 @@
 package modelo;
 
 public class Credenciales {
-    private Long id;
     private String usuario;
     private String password;
 
-    public Credenciales(Long id, String usuario, String password) {
-        this.id = id;
+    public Credenciales( String usuario, String password) {
         this.usuario = usuario;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsuario() {

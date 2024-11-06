@@ -1,5 +1,8 @@
 package control;
 
+import java.util.Comparator;
+import java.util.List;
+
 import conexion.ConexionBBDD;
 import dao.PlantaDao;
 import modelo.Planta;
@@ -10,7 +13,7 @@ public class ServiciosPlanta {
 	private PlantaDao PlantaDao;
 	
 	public ServiciosPlanta() {
-		con=ConexionBBDD.getInstance();
+		con=ConexionBBDD.getInstance();l
 		PlantaDao=(PlantaDao) con.getPlantaDao();
 	}
 	
@@ -23,7 +26,9 @@ public class ServiciosPlanta {
 	}
 	
 	public int insertar(Planta e) {
-		return PlantaDao.insertar(e);
+		return PlantaDao.insertarPlanta(e);
 	}	
+	
+
 	
 }
