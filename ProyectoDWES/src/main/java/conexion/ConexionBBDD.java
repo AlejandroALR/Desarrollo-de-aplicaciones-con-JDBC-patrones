@@ -20,7 +20,7 @@ import dao.PlantaDao;
 
 public class ConexionBBDD {
 
-	private Connection con;
+	private static Connection con;
 	
 	private static ConexionBBDD f;
 	
@@ -30,10 +30,9 @@ public class ConexionBBDD {
 		return f;
 	}
 	
-
 	// Patron factory conexion
 	
-	private ConexionBBDD() {
+	public static Connection realizaConexion() {
 		Properties prop = new Properties();
 		MysqlDataSource m = new MysqlDataSource();
 		FileInputStream fis;
@@ -55,6 +54,18 @@ public class ConexionBBDD {
 			System.out.println("Error al leer las propiedades del fiechro properties" + e.getMessage());
 		}catch (SQLException e) {
 			System.out.println("Error al conectar a la base de datos: usuarios, password....");
+		}
+		return con;
+	}
+	
+	public static void cerrarConexion() {
+		try {
+			if (con != null && !con.isClosed()) {
+				con.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("Se ha producido una SQLException: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
@@ -79,8 +90,6 @@ public class ConexionBBDD {
 		return new MensajeDao(con);
 	}
 	*/
-
-
 }
 	
 	

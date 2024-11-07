@@ -4,10 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashSet;
 import conexion.ConexionBBDD;
 import modelo.Planta;
 
@@ -33,9 +30,21 @@ public class PlantaDao {
     	return 0;
     }
     
-    public int modificarPlanta(Planta p) {
-    	return 0;
-    }
+    public boolean modificarPlanta(Planta p) {
+    	try {
+			String sql = "UPDATE planta SET nombrecomun = ?WHERE codigo = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			ps.setString(1, p.getCodigo());
+			ps.setString(2, p.getNombrecomun());
+			ps.setString(3, p.getNombrecientifico());
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			System.out.println("Error al modificar en planta" + e.getMessage());
+		}
+		return false;
+
+	}
     
     public int eliminarPlanta(Planta p) {
     	try {
@@ -48,7 +57,7 @@ public class PlantaDao {
     	return 0;
     }
     
-    public Planta obtenerPlantaPorCodigo(String codigo) throws SQLException {
+    public Planta findByCodigo(String codigo) throws SQLException {
         String query = "SELECT * FROM plantas WHERE codigo = ?";
         try (PreparedStatement statement = con.prepareStatement(query)) {
             statement.setString(1, codigo);
@@ -64,21 +73,64 @@ public class PlantaDao {
         return null;
     }
     
+    public HashSet<Planta> findAll(){
+		String sql = "SELECT * FROM plantas";
+		HashSet<Planta> plantas = new HashSet<>();
+
+		try {
+			if (this.con == null || this.con.isClosed()) {
+				this.con = ConexionBBDD.realizaConexion();
+			}
+
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ResultSet res = ps.executeQuery();
+			while (res.next()) {
+				Planta planta = new Planta(
+						res.getString("codigo"), 
+						res.getString("nombrecomun"),
+						res.getString("nombrecientifico"));
+				plantas.add(planta);
+			}
+			ConexionBBDD.cerrarConexion();
+
+		} catch (SQLException e) {
+			System.out.println("Error al ver las plantas" + e.getMessage());
+		}
+
+		return plantas;
+	}
+
     
-    
-    public Planta findByCodigo(String cod) {
-    	return null;
-    }
-    
-    public List<Planta> findAll(){
-    	return null;
-    }
-    
-    public ArrayList <Planta> findByNombreComun(String nombre){
+    public Planta findByNombreComun(String nombrecomun) throws SQLException{
+        String query = "SELECT * FROM plantas WHERE codigo = ?";
+        try (PreparedStatement statement = con.prepareStatement(query)) {
+            statement.setString(2, nombrecomun);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Planta(
+                    resultSet.getString("codigo"),
+                    resultSet.getString("nombrecomun"),
+                    resultSet.getString("nombrecientifico")
+                );
+            }
+        }
     	return null;
 	}
     
-    public ArrayList <Planta> findByNombreCientifico(String nombre){
+    public Planta findByNombreCientifico(String nombrecientifico) throws SQLException{
+        String query = "SELECT * FROM plantas WHERE codigo = ?";
+        try (PreparedStatement statement = con.prepareStatement(query)) {
+            statement.setString(3, nombrecientifico);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Planta(
+                    resultSet.getString("codigo"),
+                    resultSet.getString("nombrecomun"),
+                    resultSet.getString("nombrecientifico")
+                );
+            }
+        }
     	return null;
 	}
     

@@ -7,18 +7,14 @@ public class Ejemplar {
     private Long id;
     private String nombre;
     private Planta planta;
-//    private List<Persona> seguidores;
-//    private List<Mensaje> mensajes;
 
     public Ejemplar(Long id, Planta planta) {
         this.id = id;
         this.planta = planta;
         this.nombre = planta.getCodigo() + "_" + id;
-//        this.seguidores = new ArrayList<>();
-//        this.mensajes = new ArrayList<>();
     }
 
-    public Long getId() {
+    public static Long getId() {
         return id;
     }
 
@@ -42,22 +38,6 @@ public class Ejemplar {
         this.planta = planta;
     }
 
-//    public List<Persona> getSeguidores() {
-//        return seguidores;
-//    }
-//
-//    public void addSeguidor(Persona persona) {
-//        this.seguidores.add(persona);
-//    }
-//
-//    public List<Mensaje> getMensajes() {
-//        return mensajes;
-//    }
-//
-//    public void addMensaje(Mensaje mensaje) {
-//        this.mensajes.add(mensaje);
-//    }
-//    
     
 }
 

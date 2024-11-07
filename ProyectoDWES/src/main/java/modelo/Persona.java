@@ -7,11 +7,11 @@ public class Persona {
     private String email;
     private Credenciales credenciales;
 
-    public Persona(Long id, String nombre, String email, Credenciales credenciales) {
+    public Persona(Long id, String nombre, String email, long l) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
-        this.credenciales = credenciales;
+        this.credenciales = l;
     }
 
     public Long getId() {
