@@ -1,8 +1,8 @@
 package control;
 
 public class Controlador {
-	private static Controlador servicios;
 	
+	private static Controlador servicios;
 	private ServiciosPlanta servPlanta;
 	private ServiciosEjemplar servEjemplar;
 	private ServiciosPersona servPersona;

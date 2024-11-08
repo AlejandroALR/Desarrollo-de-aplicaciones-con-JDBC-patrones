@@ -7,17 +7,27 @@ import modelo.Credenciales;
 public class ServiciosCredenciales {
 
 		private ConexionBBDD con;
-		private CredencialesDao CredencialesDao;
+		private CredencialesDao credencialesDao;
 		
 		public ServiciosCredenciales() {
 			con=ConexionBBDD.getInstance();
-			CredencialesDao=(CredencialesDao) con.getCredencialesDao();
+			credencialesDao=(CredencialesDao) con.getCredencialesDao();
 		}
 		
-		public boolean validarCredenciales(Credenciales c) {
-			boolean ret = false;
-			if(c.getUsuario().isEmpty())return false;
-			if(c.getPassword().length()<2 || c.getPassword().length()>20)return false;
-			return true;
+		
+		public boolean validarCredencial(String usuario, String password) {
+			return credencialesDao.validarCredenciales(usuario, password);
+
 		}
+		
+		public long insertarCredencial(String usuario, String password, Long idPersona) {
+			return credencialesDao.insertarCredenciales(usuario, password, idPersona);
+
+		}
+		
+		public boolean usuarioExist(String usuario) {
+			return credencialesDao.usuarioExist(usuario);
+		}
+		
+		
 }

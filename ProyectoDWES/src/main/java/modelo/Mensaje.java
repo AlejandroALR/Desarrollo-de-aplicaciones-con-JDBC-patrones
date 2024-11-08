@@ -1,22 +1,23 @@
 package modelo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Mensaje {
     private Long id;
-    private LocalDateTime fechaHora;
+    private LocalDate fechaHora;
     private String mensaje;
-    private Persona persona;
-    private Ejemplar ejemplar;
+    private int persona;
+    private int ejemplar;
     
 	public Mensaje() {}
 
-    public Mensaje(Long id, String mensaje, Persona persona, Ejemplar ejemplar) {
+    public Mensaje(Long id, String mensaje, int persona, int ejemplar) {
         this.id = id;
         this.mensaje = mensaje;
         this.persona = persona;
         this.ejemplar = ejemplar;
-        this.fechaHora = LocalDateTime.now();
+        this.fechaHora = fechaHora;
     }
 
     
@@ -28,11 +29,11 @@ public class Mensaje {
         this.id = id;
     }
 
-    public LocalDateTime getFechaHora() {
+    public LocalDate getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
+    public void setFechaHora(LocalDate fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -44,19 +45,19 @@ public class Mensaje {
         this.mensaje = mensaje;
     }
 
-    public Persona getPersona() {
+    public int getPersona() {
         return persona;
     }
 
-    public void setPersona(Persona persona) {
+    public void setPersona(int persona) {
         this.persona = persona;
     }
 
-    public Ejemplar getEjemplar() {
+    public int getEjemplar() {
         return ejemplar;
     }
 
-    public void setEjemplar(Ejemplar ejemplar) {
+    public void setEjemplar(int ejemplar) {
         this.ejemplar = ejemplar;
     }
 }

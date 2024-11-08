@@ -10,9 +10,8 @@ import java.util.Collection;
 import modelo.Ejemplar;
 
 public class EjemplarDao {
-	private Connection con;
+	Connection con;
 	private ResultSet rs;
-	private Statement st;
 	private PreparedStatement ps;
 
 	
@@ -22,9 +21,12 @@ public class EjemplarDao {
 	
 	public long insertarEjemplar (Ejemplar ej) {
 		try {
-			ps = con.prepareStatement("insert into ejemplar (nombre, planta) values (?,?)");
-			ps.setString(1, ej.getNombre());
-			ps.setString(2, ej.getPlanta());
+			ps = con.prepareStatement("insert into ejemplar (id, nombre, codPlanta) values (?,?)");
+			
+			ps.setLong(1, ej.getId());
+			ps.setString(2, ej.getNombre());
+			ps.setString(3, ej.getcodPlanta());
+			
 			return ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error al insertar en ejemplar" + e.getMessage());
@@ -51,11 +53,29 @@ public class EjemplarDao {
 
 	}
 
-	public Collection <Ejemplar> verTodas() {
-		return null;
-	}
+	public Ejemplar findById(Ejemplar ej) {
+		Ejemplar ejemplar = null;
+        String consulta = "SELECT * FROM ejemplares WHERE id = ?";
+        try (
+        	PreparedStatement ps = con.prepareStatement(consulta)) {
+            ps.setLong(1, ej.getId());
+            try (
+            	ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ejemplar = new Ejemplar();
+                    ejemplar.setId(rs.getLong("id"));
+                    ejemplar.setNombre(rs.getString("nombre"));
+                    ejemplar.setcodPlanta(rs.getString("codigoPlanta"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener el " + ej.getId() + ": " + e.getMessage());
+        }
 
-	public Ejemplar findbyId(long id) {
+        return ejemplar;
+	}
+	
+	public Collection <Ejemplar> verTodas() {
 		return null;
 	}
 }

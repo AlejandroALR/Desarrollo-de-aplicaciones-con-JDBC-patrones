@@ -61,33 +61,5 @@ public class PersonaDao {
     	}
     	return 0;
     }
-	
-	public HashSet<Persona> findAll() {
-		String sql = "SELECT * FROM persona";
-		HashSet<Persona> personas = new HashSet<>();
-
-		try {
-			if (this.con == null || this.con.isClosed()) {
-				this.con = ConexionBBDD.realizaConexion();
-			}
-
-			PreparedStatement ps = con.prepareStatement(sql);
-
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Persona persona = new Persona(
-						rs.getLong("id"), 
-						rs.getString("admin"), 
-						rs.getString("email"),
-						rs.getLong("id_Credencial"));
-				personas.add(persona);
-			}
-			ConexionBBDD.cerrarConexion();
-		} catch (SQLException e) {
-			System.out.println("Error al ver las personas" + e.getMessage());
-		}
-
-		return personas;
-	}
     
 }

@@ -1,20 +1,19 @@
 package modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Ejemplar {
     private Long id;
     private String nombre;
-    private Planta planta;
+    private String codPlanta;
 
-    public Ejemplar(Long id, Planta planta) {
+    public Ejemplar() {}
+    
+    public Ejemplar(Long id, String nombre, String codPlanta) {
         this.id = id;
-        this.planta = planta;
-        this.nombre = planta.getCodigo() + "_" + id;
+        this.nombre = nombre;
+        this.codPlanta = codPlanta;
     }
 
-    public static Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -30,14 +29,13 @@ public class Ejemplar {
         this.nombre = nombre;
     }
 
-    public Planta getPlanta() {
-        return planta;
+    public String getcodPlanta() {
+        return codPlanta;
     }
 
-    public void setPlanta(Planta planta) {
-        this.planta = planta;
+    public void setcodPlanta(String codPlanta) {
+        this.codPlanta = codPlanta;
     }
-
     
 }
 

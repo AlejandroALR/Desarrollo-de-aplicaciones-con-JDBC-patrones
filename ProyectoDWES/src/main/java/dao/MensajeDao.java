@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.google.protobuf.Timestamp;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 import conexion.ConexionBBDD;
@@ -36,10 +36,10 @@ public class MensajeDao {
 			ps = con.prepareStatement(sql);
 
 			ps.setLong(1, m.getId());
-			ps.setLocalDateTime(2, LocalDateTime.now((m.getFechaHora())));
+			ps.setDate(2, Date.valueOf(m.getFechaHora()));
 			ps.setString(3, m.getMensaje());
-			ps.setLong(4, Ejemplar.getI());
-			ps.setPersona(5, m.getPersona());
+			ps.setInt(4, m.getEjemplar());
+			ps.setInt(5, m.getPersona());
 
 			return ps.executeUpdate();
 
@@ -71,36 +71,6 @@ public class MensajeDao {
 		return false;
 	}
 
-	public HashSet <Mensaje> findAll() {
-		String sql = "SELECT * FROM mensajes";
-		HashSet <Mensaje> mensajes = new HashSet<>();
-
-		try {
-			if (this.con == null || this.con.isClosed()) {
-				this.con = ConexionBBDD.realizaConexion();
-			}
-
-			PreparedStatement ps = con.prepareStatement(sql);
-
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Mensaje mensaje = new Mensaje(
-						rs.getLong("id"), 
-						rs.getTimestamp("fechahora").toLocalDateTime(),
-						rs.getString("mensaje"),
-						rs.getLong("Ejemplar"),
-						rs.getLong("Persona"));
-				mensajes.add(mensaje);
-			}
-			ConexionBBDD.cerrarConexion();
-
-		} catch (SQLException e) {
-			System.out.println("Error al ver los mensajes" + e.getMessage());
-		}
-
-		return mensajes;
-
-	}
 
 	public Mensaje findById(long id) {
 		return null;
