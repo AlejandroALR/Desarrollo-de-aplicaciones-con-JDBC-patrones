@@ -3,16 +3,14 @@ package modelo;
 public class Planta {
 	
 	private String codigo;
-	private String nombrecomun;
-	private String nombrecientifico;
+	private String nombreComun;
+	private String nombreCientifico;
 	
-	public Planta() {}
-	
-	public Planta(String codigo, String nombrecomun, String nombrecientifico) {
-		super();
+	public Planta(String codigo, String nombreComun, String nombreCientifico) {
+
 		this.codigo = codigo;
-		this.nombrecomun = nombrecomun;
-		this.nombrecientifico = nombrecientifico;
+		this.nombreComun = nombreComun;
+		this.nombreCientifico = nombreCientifico;
 	}
 
 	public String getCodigo() {
@@ -23,27 +21,31 @@ public class Planta {
 		this.codigo = codigo;
 	}
 
-	public String getNombrecomun() {
-		return nombrecomun;
+	public String getnombreComun() {
+		return nombreComun;
 	}
 
-	public void setNombrecomun(String nombrecomun) {
-		this.nombrecomun = nombrecomun;
+	public void setnombreComun(String nombreComun) {
+		this.nombreComun = nombreComun;
 	}
 
-	public String getNombrecientifico() {
-		return nombrecientifico;
+	public String getnombreCientifico() {
+		return nombreCientifico;
 	}
 
-	public void setNombrecientifico(String nombrecientifico) {
-		this.nombrecientifico = nombrecientifico;
+	public void setnombreCientifico(String nombreCientifico) {
+		this.nombreCientifico = nombreCientifico;
 	}
 	
 
 	@Override
 	public String toString() {
-		return "Planta [codigo=" + codigo + ", nombrecomun=" + nombrecomun + ", nombrecientifico=" + nombrecientifico
-				+ "]";
-	}	
+		String ret ="";
+			ret ="PLANTA";
+			ret += "\tCódigo: " + this.codigo;
+			ret += "\tNombre común: " + this.nombreComun;
+			ret += "\tNombre científico: " + this.nombreCientifico;
+		return ret;
+	}
 
 }

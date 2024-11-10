@@ -1,20 +1,14 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.List;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
-
-import conexion.ConexionBBDD;
-import modelo.Ejemplar;
 import modelo.Mensaje;
-import modelo.Persona;
 
 public class MensajeDao {
 	private Connection con;
@@ -22,57 +16,84 @@ public class MensajeDao {
 	private ResultSet rs;
 
 	public MensajeDao(Connection con) {
-
-		if (this.con == null) {
-			this.con = con;
-		}
+		this.con = con;
 	}
 
-	public long insertarMensaje(Mensaje m) {
+	public int insertarMensaje(Mensaje m) {
 
 		try {
 
-			String sql = "INSERT INTO mensajes(id, mensaje, idEjemplar, idPersona) values (?,?,?,?,?)";
+			String sql = "INSERT INTO mensajes(fechaHora, mensaje, idEjemplar, idPersona) values (?,?,?,?)";
 			ps = con.prepareStatement(sql);
 
-			ps.setLong(1, m.getId());
-			ps.setDate(2, Date.valueOf(m.getFechaHora()));
-			ps.setString(3, m.getMensaje());
-			ps.setInt(4, m.getEjemplar());
-			ps.setInt(5, m.getPersona());
+			ps.setTimestamp(1, Timestamp.valueOf(m.getFechaHora()));
+			ps.setString(2, m.getMensaje());
+			ps.setInt(3, m.getfk_idEjemplar());
+			ps.setInt(4, m.getfk_idPersona());
 
 			return ps.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("Error al insertar en mensaje" + e.getMessage());
+			System.out.println("Error al insertar en mensajes" + e.getMessage());
 		}
 
 		return 0;
 	}
+
+	public List<Mensaje> findByEjemplar(int idEjemplar) { 
+		List<Mensaje> listaMensajes = new ArrayList<Mensaje>();
+		try {
+			
+			ps = con.prepareStatement("SELECT * FROM mensajes INNER JOIN ejemplares ON mensajes.fk_idEjemplar = ejemplares.id WHERE ejemplares.id=?"); 
+			ps.setInt(1, idEjemplar);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				listaMensajes.add(new Mensaje( rs.getString(2), rs.getTimestamp(3).toLocalDateTime(), rs.getInt(4), rs.getInt(5)));
+			}
+			return listaMensajes;
+			
+		} catch (SQLException e) {
+			System.out.println("Error al consultar por ejemplar " + e.getMessage());
+		}
+		return null;
+	}
 	
-    public int insetarMensaje (Mensaje m) {
-    	try {
-    		ps = con.prepareStatement("insert into mensaje (id, fechahora, mensaje, persona, ejemplar) values(?,?,?,?,?)");
-    		ps.setLong(1, m.getId());
-    		ps.setLong(3, m.getId());
-    		ps.setLong(4, m.getId());
-    		return ps.executeUpdate();
-    	}catch (SQLException e) {
-    		System.out.println("Error al insertar en persona" + e.getMessage());
-    	}
-    	return 0;
-    }
+	
+	public List<Mensaje> findByTipo(String tipo) { 
+		List<Mensaje> listaMensajes = new ArrayList<Mensaje>();
+		try {
+			ps = con.prepareStatement("SELECT * FROM mensajes INNER JOIN plantas ON mensajes.fk_idEjemplar = plantas.codigo WHERE plantas.nombreComun =?"); 
+			ps.setString(1, tipo);
+			rs = ps.executeQuery();
 
-	public boolean eliminarMensaje(Mensaje m) {
-		return false;
+			while (rs.next()) {
+				listaMensajes.add(new Mensaje(rs.getString(3), rs.getTimestamp(2).toLocalDateTime(), rs.getInt(4), rs.getInt(5)));
+			}
+			return listaMensajes;
+		} catch (SQLException e) {
+			System.out.println("Error al consultar por tipo " + e.getMessage());
+	
+		}
+		return null;
 	}
 
-	public boolean modificarMensaje(Mensaje m) {
-		return false;
-	}
 
+	public List<Mensaje> findAll() { 
+		List<Mensaje> listaMensajes = new ArrayList<Mensaje>();
+		try {
+			
+			ps = con.prepareStatement("SELECT * FROM mensajes"); 
+			rs = ps.executeQuery();
 
-	public Mensaje findById(long id) {
+			while (rs.next()) {
+				listaMensajes.add(new Mensaje(rs.getString(2), rs.getTimestamp(3).toLocalDateTime(), rs.getInt(4), rs.getInt(5)));
+			}
+			return listaMensajes;
+			
+		} catch (SQLException e) {
+			System.out.println("Error al consultar por ejemplar " + e.getMessage());
+		}
 		return null;
 	}
 }

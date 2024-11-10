@@ -85,11 +85,11 @@ public class ConexionBBDD {
 		return new EjemplarDao(con);
 	}
 	
-	/*
+	
 	public MensajeDao getMensajeDao() {
 		return new MensajeDao(con);
 	}
-	*/
+
 }
 	
 	

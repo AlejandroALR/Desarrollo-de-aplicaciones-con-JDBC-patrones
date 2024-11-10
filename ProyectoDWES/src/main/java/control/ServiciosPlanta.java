@@ -1,7 +1,10 @@
 package control;
 
+import java.util.List;
+
 import conexion.ConexionBBDD;
 import dao.PlantaDao;
+import modelo.Persona;
 import modelo.Planta;
 
 public class ServiciosPlanta {
@@ -14,17 +17,29 @@ public class ServiciosPlanta {
 		PlantaDao=(PlantaDao) con.getPlantaDao();
 	}
 	
-	public boolean validarPlanta(Planta p) {
-		boolean ret = false;
-		if(p.getCodigo().isEmpty())return false;
-		if(p.getCodigo().length()<3 || p.getCodigo().length()>20)return false;
-		
-		return true;
+	public boolean validarPlanta(String codigo) {
+		if(this.findByCod(codigo)== null) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
-	public int insertar(Planta e) {
-		return PlantaDao.insertarPlanta(e);
-	}	
+	public int insertar(Planta p) {
+		return PlantaDao.insertarPlanta(p);
+	}
+
+	public int modificar(Planta p) {
+		return PlantaDao.modificarPlanta(p);
+	}
+
+	public Planta findByCod(String codigo) {
+		return PlantaDao.findByCodigo(codigo);
+	}
+	
+	public List<Planta> findAll() {
+		return PlantaDao.findAll();
+	}
 	
 
 	

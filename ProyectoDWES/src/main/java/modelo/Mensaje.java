@@ -1,39 +1,36 @@
 package modelo;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Mensaje {
-    private Long id;
-    private LocalDate fechaHora;
+    private int id;
+    private LocalDateTime fechaHora;
     private String mensaje;
-    private int persona;
-    private int ejemplar;
+    private int fk_idPersona;
+    private int fk_idEjemplar;
     
-	public Mensaje() {}
-
-    public Mensaje(Long id, String mensaje, int persona, int ejemplar) {
-        this.id = id;
+    
+    public Mensaje(String mensaje, LocalDateTime fechahora, int fk_idPersona, int fk_idEjemplar) {
         this.mensaje = mensaje;
-        this.persona = persona;
-        this.ejemplar = ejemplar;
+        this.fk_idPersona = fk_idPersona;
+        this.fk_idEjemplar = fk_idEjemplar;
         this.fechaHora = fechaHora;
     }
 
     
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public LocalDate getFechaHora() {
+    public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDate fechaHora) {
+    public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -45,20 +42,32 @@ public class Mensaje {
         this.mensaje = mensaje;
     }
 
-    public int getPersona() {
-        return persona;
+    public int getfk_idPersona() {
+        return fk_idPersona;
     }
 
-    public void setPersona(int persona) {
-        this.persona = persona;
+    public void setfk_idPersona(int fk_idPersona) {
+        this.fk_idPersona = fk_idPersona;
     }
 
-    public int getEjemplar() {
-        return ejemplar;
+    public int getfk_idEjemplar() {
+        return fk_idEjemplar;
     }
 
-    public void setEjemplar(int ejemplar) {
-        this.ejemplar = ejemplar;
+    public void setfk_idEjemplar(int fk_idEjemplar) {
+        this.fk_idEjemplar = fk_idEjemplar;
     }
+    
+	@Override
+	public String toString() {
+		String ret ="";
+			ret ="MENSAJE";
+			ret += "\tId: " + this.id;
+			ret += "\tFecha y Hora: " + this.fechaHora;
+			ret += "\tMensaje: " + this.mensaje;
+			ret += "\tfk_idPersona: " + this.fk_idPersona;
+			ret += "\tfk_idEjemplar: " + this.fk_idEjemplar;
+		return ret;
+	}
 }
 

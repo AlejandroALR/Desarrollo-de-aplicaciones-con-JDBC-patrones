@@ -1,23 +1,27 @@
 package modelo;
 
 public class Ejemplar {
-    private Long id;
+    private int id;
     private String nombre;
-    private String codPlanta;
+    private String fk_codPlanta;
 
-    public Ejemplar() {}
     
-    public Ejemplar(Long id, String nombre, String codPlanta) {
+    public Ejemplar(int id, String nombre, String fk_codPlanta) {
         this.id = id;
         this.nombre = nombre;
-        this.codPlanta = codPlanta;
+        this.fk_codPlanta = fk_codPlanta;
     }
+    
+	public Ejemplar(String nombre, String fk_codPlanta) {
+		this.nombre = nombre;
+		this.fk_codPlanta = fk_codPlanta;
+	}
 
-	public Long getId() {
+	public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -29,13 +33,23 @@ public class Ejemplar {
         this.nombre = nombre;
     }
 
-    public String getcodPlanta() {
-        return codPlanta;
+    public String getfk_codPlanta() {
+        return fk_codPlanta;
     }
 
-    public void setcodPlanta(String codPlanta) {
-        this.codPlanta = codPlanta;
+    public void setfk_codPlanta(String fk_codPlanta) {
+        this.fk_codPlanta = fk_codPlanta;
     }
+    
+	@Override
+	public String toString() {
+		String ret ="";
+			ret ="EJEMPLAR";
+			ret += "\tID: " + this.id;
+			ret += "\tNombre: " + this.nombre;
+			ret += "\tfk_codPlanta " + this.fk_codPlanta;
+		return ret;
+	}
     
 }
 

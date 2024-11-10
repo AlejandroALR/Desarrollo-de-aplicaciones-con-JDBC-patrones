@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import modelo.Ejemplar;
 
@@ -21,61 +21,90 @@ public class EjemplarDao {
 	
 	public long insertarEjemplar (Ejemplar ej) {
 		try {
-			ps = con.prepareStatement("insert into ejemplar (id, nombre, codPlanta) values (?,?)");
 			
+			ps = con.prepareStatement("insert into ejemplar (id, nombre, fk_codPlanta) values (?,?,?)");
 			ps.setLong(1, ej.getId());
 			ps.setString(2, ej.getNombre());
-			ps.setString(3, ej.getcodPlanta());
-			
+			ps.setString(3, ej.getfk_codPlanta());
 			return ps.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println("Error al insertar en ejemplar" + e.getMessage());
 		}
 		return 0;
 	}
 	
-	public int modificarEjemplar (Ejemplar ej) {
-		return 0;
-	}
-
-	public boolean eliminarEjemplar (Ejemplar ej) {
+	public Ejemplar findById(int id) {
 		try {
-			String sql = "DELETE FROM ejemplar WHERE id=?";
 			
-			ps = con.prepareStatement(sql);
-			ps.setLong(1, ej.getId());
+			ps = con.prepareStatement("SELECT * FROM ejemplares");
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				return new Ejemplar(rs.getString(2), rs.getString(3));
+			}
 			
 		} catch (SQLException e) {
-			System.out.println("Error al borrar en ejemplar" + e.getMessage());
-			e.printStackTrace();
+			System.out.println("Error al consultar por tipo " + e.getMessage());
+
 		}
-		return false;
-
-	}
-
-	public Ejemplar findById(Ejemplar ej) {
-		Ejemplar ejemplar = null;
-        String consulta = "SELECT * FROM ejemplares WHERE id = ?";
-        try (
-        	PreparedStatement ps = con.prepareStatement(consulta)) {
-            ps.setLong(1, ej.getId());
-            try (
-            	ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    ejemplar = new Ejemplar();
-                    ejemplar.setId(rs.getLong("id"));
-                    ejemplar.setNombre(rs.getString("nombre"));
-                    ejemplar.setcodPlanta(rs.getString("codigoPlanta"));
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener el " + ej.getId() + ": " + e.getMessage());
-        }
-
-        return ejemplar;
-	}
-	
-	public Collection <Ejemplar> verTodas() {
 		return null;
 	}
+	
+	public int findLastId() {
+		try {
+			
+			ps = con.prepareStatement("SELECT LAST(id) FROM ejemplares");
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Error al consultar por tipo " + e.getMessage());
+
+		}
+		return (Integer) null;
+	}
+
+	public List<Ejemplar> findAll() {
+		List<Ejemplar> listaEjemplares = new ArrayList<Ejemplar>();
+		try {
+			
+			ps = con.prepareStatement("SELECT * FROM ejemplares");
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				listaEjemplares.add(new Ejemplar(rs.getInt(1), rs.getString(2), rs.getString(3)));
+			}
+			return listaEjemplares;
+			
+		} catch (SQLException e) {
+			System.out.println("Error al consultar por tipo " + e.getMessage());
+
+		}
+		return null;
+	}
+	
+	public List<Ejemplar> findByTipo(String tipo) {
+		List<Ejemplar> listaEjemplares = new ArrayList<Ejemplar>();
+		try {
+			
+			ps = con.prepareStatement("SELECT * FROM ejemplares INNER JOIN plantas ON ejemplares.fk_codPlanta = plantas.codigo WHERE plantas.codigo IN (?)");
+			ps.setString(1, tipo);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				listaEjemplares.add(new Ejemplar(rs.getString(2), rs.getString(3)));
+			}
+			return listaEjemplares;
+			
+		} catch (SQLException e) {
+			System.out.println("Error al consultar por tipo " + e.getMessage());
+
+		}
+		return null;
+	}
+	
 }
