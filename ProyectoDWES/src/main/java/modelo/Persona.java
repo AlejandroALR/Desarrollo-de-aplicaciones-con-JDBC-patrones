@@ -2,23 +2,26 @@ package modelo;
 
 
 public class Persona {
-    private Long id;
+    private int id;
     private String nombre;
     private String email;
-    private Credenciales credenciales;
 
-    public Persona(Long id, String nombre, String email, long l) {
+    public Persona(int id, String nombre, String email) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
-        this.credenciales = l;
     }
+    
+	public Persona(String nombre, String email) {
+		this.nombre = nombre;
+		this.email = email;
+	}
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -37,18 +40,15 @@ public class Persona {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Credenciales getCredenciales() {
-        return credenciales;
-    }
-
-    public void setCredenciales(Credenciales credenciales) {
-        this.credenciales = credenciales;
-    }
     
 	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", email=" + email + "]";
+		String ret ="";
+			ret ="PERSONA";
+			ret += "\tId: " + this.id;
+			ret += "\tNombre: " + this.nombre;
+			ret += "\tEmail " + this.email;
+		return ret;
 	}
 }
 

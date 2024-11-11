@@ -1,24 +1,27 @@
 package modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Ejemplar {
-    private Long id;
+    private int id;
     private String nombre;
-    private Planta planta;
+    private String fk_codPlanta;
 
-    public Ejemplar(Long id, Planta planta) {
+    
+    public Ejemplar(int id, String nombre, String fk_codPlanta) {
         this.id = id;
-        this.planta = planta;
-        this.nombre = planta.getCodigo() + "_" + id;
+        this.nombre = nombre;
+        this.fk_codPlanta = fk_codPlanta;
     }
+    
+	public Ejemplar(String nombre, String fk_codPlanta) {
+		this.nombre = nombre;
+		this.fk_codPlanta = fk_codPlanta;
+	}
 
-    public static Long getId() {
+	public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -30,14 +33,23 @@ public class Ejemplar {
         this.nombre = nombre;
     }
 
-    public Planta getPlanta() {
-        return planta;
+    public String getfk_codPlanta() {
+        return fk_codPlanta;
     }
 
-    public void setPlanta(Planta planta) {
-        this.planta = planta;
+    public void setfk_codPlanta(String fk_codPlanta) {
+        this.fk_codPlanta = fk_codPlanta;
     }
-
+    
+	@Override
+	public String toString() {
+		String ret ="";
+			ret ="EJEMPLAR";
+			ret += "\tID: " + this.id;
+			ret += "\tNombre: " + this.nombre;
+			ret += "\tfk_codPlanta " + this.fk_codPlanta;
+		return ret;
+	}
     
 }
 

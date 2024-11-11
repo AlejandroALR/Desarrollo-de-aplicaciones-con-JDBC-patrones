@@ -81,15 +81,15 @@ public class ConexionBBDD {
 		return new CredencialesDao(con);
 	}
 	
-	/*
 	public EjemplarDao getEjemplarDao() {
 		return new EjemplarDao(con);
 	}
 	
+	
 	public MensajeDao getMensajeDao() {
 		return new MensajeDao(con);
 	}
-	*/
+
 }
 	
 	
