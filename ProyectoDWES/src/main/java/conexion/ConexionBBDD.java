@@ -29,7 +29,7 @@ public class ConexionBBDD {
 	}
 	
 	
-	// Patron factory conexion
+	// Patron factory conexion as
 	
 	public static Connection realizaConexion() {
 		Properties prop = new Properties();
