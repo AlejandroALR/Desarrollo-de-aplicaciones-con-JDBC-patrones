@@ -73,7 +73,7 @@ public class FachadaViveroMensajes {
 		System.out.println("Introduce el codigo de ejemplar");
 		System.out.println();
 		System.out.println("Codigo de Ejemplar: ");
-		int id = in.nextInt();
+		Long id = in.nextInt();
 		in.nextLine();
 		System.out.println();
 		System.out.println("Mensaje: ");

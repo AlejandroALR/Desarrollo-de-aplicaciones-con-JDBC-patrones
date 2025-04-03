@@ -1,12 +1,12 @@
 package modelo;
 
 public class Credenciales {
-	private int id;
+	private Long id;
     private String usuario;
     private String password;
-    private int fk_idPersona;
+    private Long fk_idPersona;
 
-    public Credenciales( String usuario, String password, int fk_idPersona) {
+    public Credenciales(String usuario, String password, Long fk_idPersona) {
         this.usuario = usuario;
         this.password = password;
         this.fk_idPersona = fk_idPersona;
@@ -17,11 +17,11 @@ public class Credenciales {
 		this.password = password;
 	}
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
@@ -41,11 +41,11 @@ public class Credenciales {
         this.password = password;
     }
     
-	public int getfk_idPersona() {
+	public Long getfk_idPersona() {
 		return fk_idPersona;
 	}
 
-	public void setfk_idPersona(int fk_idPersona) {
+	public void setfk_idPersona(Long fk_idPersona) {
 		this.fk_idPersona = fk_idPersona;
 	}
 	

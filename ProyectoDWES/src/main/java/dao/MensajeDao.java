@@ -28,8 +28,8 @@ public class MensajeDao {
 
 			ps.setTimestamp(1, Timestamp.valueOf(m.getFechaHora()));
 			ps.setString(2, m.getMensaje());
-			ps.setInt(3, m.getfk_idEjemplar());
-			ps.setInt(4, m.getfk_idPersona());
+			ps.setLong(3, m.getfk_idEjemplar());
+			ps.setLong(4, m.getfk_idPersona());
 
 			return ps.executeUpdate();
 
@@ -49,7 +49,7 @@ public class MensajeDao {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				listaMensajes.add(new Mensaje( rs.getString(2), rs.getTimestamp(3).toLocalDateTime(), rs.getInt(4), rs.getInt(5)));
+				listaMensajes.add(new Mensaje( rs.getString(2), rs.getTimestamp(3).toLocalDateTime(), rs.getLong(4), rs.getLong(5)));
 			}
 			return listaMensajes;
 			
@@ -68,7 +68,7 @@ public class MensajeDao {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				listaMensajes.add(new Mensaje(rs.getString(3), rs.getTimestamp(2).toLocalDateTime(), rs.getInt(4), rs.getInt(5)));
+				listaMensajes.add(new Mensaje(rs.getString(3), rs.getTimestamp(2).toLocalDateTime(), rs.getLong(4), rs.getLong(5)));
 			}
 			return listaMensajes;
 		} catch (SQLException e) {
@@ -87,7 +87,7 @@ public class MensajeDao {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				listaMensajes.add(new Mensaje(rs.getString(2), rs.getTimestamp(3).toLocalDateTime(), rs.getInt(4), rs.getInt(5)));
+				listaMensajes.add(new Mensaje(rs.getString(2), rs.getTimestamp(3).toLocalDateTime(), rs.getLong(4), rs.getLong(5)));
 			}
 			return listaMensajes;
 			

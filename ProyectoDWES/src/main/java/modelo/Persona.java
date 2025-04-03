@@ -2,11 +2,11 @@ package modelo;
 
 
 public class Persona {
-    private int id;
+    private Long id;
     private String nombre;
     private String email;
 
-    public Persona(int id, String nombre, String email) {
+    public Persona(Long id, String nombre, String email) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -17,11 +17,11 @@ public class Persona {
 		this.email = email;
 	}
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

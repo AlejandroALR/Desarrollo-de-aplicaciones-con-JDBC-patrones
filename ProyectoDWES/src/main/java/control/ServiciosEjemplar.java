@@ -19,9 +19,9 @@ public class ServiciosEjemplar {
 			EjemplarDao = (EjemplarDao) con.getEjemplarDao();
 		}
 
-		public void registrarEjemplar(Planta p, int fk_codPlanta) {
+		public void registrarEjemplar(Planta p, Long fk_codPlanta) {
 			
-			int nuevoId = this.findLastId()+1;
+			 nuevoId = this.findLastId()+1;
 			Ejemplar ej = new Ejemplar(nuevoId, p.getCodigo() + "_" + nuevoId, p.getCodigo());
 			this.insertarEjemplar(ej);
 			

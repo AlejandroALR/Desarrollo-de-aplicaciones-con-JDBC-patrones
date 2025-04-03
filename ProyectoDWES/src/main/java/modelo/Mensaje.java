@@ -3,14 +3,14 @@ package modelo;
 import java.time.LocalDateTime;
 
 public class Mensaje {
-    private int id;
+    private Long id;
     private LocalDateTime fechaHora;
     private String mensaje;
-    private int fk_idPersona;
-    private int fk_idEjemplar;
+    private Long fk_idPersona;
+    private Long fk_idEjemplar;
     
     
-    public Mensaje(String mensaje, LocalDateTime fechahora, int fk_idPersona, int fk_idEjemplar) {
+    public Mensaje(String mensaje, LocalDateTime fechahora, Long fk_idPersona, Long fk_idEjemplar) {
         this.mensaje = mensaje;
         this.fk_idPersona = fk_idPersona;
         this.fk_idEjemplar = fk_idEjemplar;
@@ -18,11 +18,11 @@ public class Mensaje {
     }
 
     
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,19 +42,19 @@ public class Mensaje {
         this.mensaje = mensaje;
     }
 
-    public int getfk_idPersona() {
+    public Long getfk_idPersona() {
         return fk_idPersona;
     }
 
-    public void setfk_idPersona(int fk_idPersona) {
+    public void setfk_idPersona(Long fk_idPersona) {
         this.fk_idPersona = fk_idPersona;
     }
 
-    public int getfk_idEjemplar() {
+    public Long getfk_idEjemplar() {
         return fk_idEjemplar;
     }
 
-    public void setfk_idEjemplar(int fk_idEjemplar) {
+    public void setfk_idEjemplar(Long fk_idEjemplar) {
         this.fk_idEjemplar = fk_idEjemplar;
     }
     

@@ -1,12 +1,12 @@
 package modelo;
 
 public class Ejemplar {
-    private int id;
+    private Long id;
     private String nombre;
     private String fk_codPlanta;
 
     
-    public Ejemplar(int id, String nombre, String fk_codPlanta) {
+    public Ejemplar(Long id, String nombre, String fk_codPlanta) {
         this.id = id;
         this.nombre = nombre;
         this.fk_codPlanta = fk_codPlanta;
@@ -17,11 +17,11 @@ public class Ejemplar {
 		this.fk_codPlanta = fk_codPlanta;
 	}
 
-	public int getId() {
+	public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -45,7 +45,7 @@ public class Ejemplar {
 	public String toString() {
 		String ret ="";
 			ret ="EJEMPLAR";
-			ret += "\tID: " + this.id;
+			ret += "\tId: " + this.id;
 			ret += "\tNombre: " + this.nombre;
 			ret += "\tfk_codPlanta " + this.fk_codPlanta;
 		return ret;

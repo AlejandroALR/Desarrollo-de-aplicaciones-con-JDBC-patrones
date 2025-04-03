@@ -20,7 +20,7 @@ public class CredencialesDao {
 			ps = con.prepareStatement("INSERT INTO credenciales (usuario, password, fk_idPersona) VALUES (?,?,?)");
 			ps.setString(1, c.getUsuario());
 			ps.setString(2, c.getPassword());
-			ps.setInt(3, c.getfk_idPersona());
+			ps.setLong(3, c.getfk_idPersona());
 			return ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error al insertar los credenciales " + e.getMessage());
@@ -35,7 +35,7 @@ public class CredencialesDao {
 			ps.setString(1, usuario);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				return new Credenciales(rs.getString(2), rs.getString(3),rs.getInt(4));
+				return new Credenciales(rs.getString(2), rs.getString(3),rs.getLong(4));
 			}
 		} catch (SQLException e) {
 			System.out.println("Error al buscar usuario." + e.getMessage());
@@ -50,7 +50,7 @@ public class CredencialesDao {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				listaCredenciales.add(new Credenciales(rs.getString(2), rs.getString(3), rs.getInt(4)));
+				listaCredenciales.add(new Credenciales(rs.getString(2), rs.getString(3), rs.getLong(4)));
 			}
 			return listaCredenciales;
 		} catch (SQLException e) {

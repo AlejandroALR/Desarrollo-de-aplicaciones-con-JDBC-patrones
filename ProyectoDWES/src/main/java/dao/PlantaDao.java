@@ -25,8 +25,8 @@ public class PlantaDao {
     		
     		ps = con.prepareStatement("INSERT INTO planta (codigo, nombreComun, nombrecientifico) values(?,?,?)");
     		ps.setString(1, p.getCodigo());
-    		ps.setString(2, p.getnombreComun());
-    		ps.setString(3, p.getnombreCientifico());
+    		ps.setString(2, p.getNombreComun());
+    		ps.setString(3, p.getNombreCientifico());
     		return ps.executeUpdate();
     		
     	}catch (SQLException e) {
@@ -39,8 +39,8 @@ public class PlantaDao {
     	try {
     		
     		ps = con.prepareStatement("UPDATE planta SET nombreComun=?, nombreCientifico=? WHERE codigo=?");
-    		ps.setString(1, p.getnombreComun());
-    		ps.setString(2, p.getnombreCientifico());
+    		ps.setString(1, p.getNombreComun());
+    		ps.setString(2, p.getNombreCientifico());
     		ps.setString(3, p.getCodigo());
 			return ps.executeUpdate();
 			

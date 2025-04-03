@@ -76,7 +76,7 @@ public class EjemplarDao {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				listaEjemplares.add(new Ejemplar(rs.getInt(1), rs.getString(2), rs.getString(3)));
+				listaEjemplares.add(new Ejemplar(rs.getLong(1), rs.getString(2), rs.getString(3)));
 			}
 			return listaEjemplares;
 			

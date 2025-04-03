@@ -33,7 +33,7 @@ public class ServiciosMensaje {
 		return MensajeDao.findAll();
 	}
 	
-	public void registrarMensaje(int id, int fk_idPersona, String mensaje) {
+	public void registrarMensaje(Long id, Long fk_idPersona, String mensaje) {
 		Mensaje m = new Mensaje(mensaje, LocalDateTime.now(), fk_idPersona, id);
 		this.insertarMensaje(m);
 	}
