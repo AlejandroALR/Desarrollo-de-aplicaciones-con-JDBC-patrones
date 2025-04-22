@@ -75,7 +75,7 @@ public class FachadaViveroMensajes {
 
 				System.out.println("Ejemplares disponibles:");
 				for (Ejemplar e : lista) {
-					System.out.println("ID: " + e.getId() + " - Nombre: " + e.getNombre());
+					System.out.println("Id: " + e.getId() + " - Nombre: " + e.getNombre());
 				}
 
 				Long id = null;
@@ -119,36 +119,36 @@ public class FachadaViveroMensajes {
 
 			}
 	
-	public void menuFiltrarMensajes() {
-		int opcion = 0;
-		
-		do {
-        	System.out.println("-+-MENU DE FILTRAR MENSAJES-+-");
-    		System.out.println("1 - Filtrar un Nuevo Mensaje");
-    		System.out.println("2 - Cerrar Sesion");
-    		
-    		try {
-    			opcion = in.nextInt();
-    			if (opcion < 1 || opcion > 2) {
-    				System.out.println("Opcion no valida. Ingresa un numero valido");
-    				continue;
-    			}
-    			
-                switch (opcion) {
-            	case 1:
-            		this.filtrarMensajes();
-            		break;
-            	case 2:
-            		break;
-                }
-                
-    		} catch (InputMismatchException e) {
-				System.out.println("ERROR - Ingresa un numero valido");
-				in.nextLine();
-	        }
-			    } while(opcion != 2);
+			public void menuFiltrarMensajes() {
+				int opcion = 0;
+
+				do {
+					System.out.println("-+-MENU DE FILTRAR MENSAJES-+-");
+					System.out.println("1 - Filtrar un Nuevo Mensaje");
+					System.out.println("2 - Cerrar Sesion");
+
+					try {
+						opcion = in.nextInt();
+						if (opcion < 1 || opcion > 2) {
+							System.out.println("Opcion no valida. Ingresa un numero valido");
+							continue;
+						}
+
+						switch (opcion) {
+						case 1:
+							this.filtrarMensajes();
+							break;
+						case 2:
+							break;
+						}
+
+					} catch (InputMismatchException e) {
+						System.out.println("ERROR - Ingresa un numero valido");
+						in.nextLine();
+					}
+				} while (opcion != 2);
 			}
-	
+
 	public void filtrarMensajes(){}
 	
 	
