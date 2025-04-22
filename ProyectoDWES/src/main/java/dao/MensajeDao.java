@@ -26,7 +26,7 @@ public class MensajeDao {
 			String sql = "INSERT INTO mensajes(fechaHora, mensaje, idEjemplar, idPersona) values (?,?,?,?)";
 			ps = con.prepareStatement(sql);
 
-			ps.setTimestamp(1, Timestamp.valueOf(m.getFechaHora()));
+			ps.setTimestamp(1, Timestamp.valueOf(m.getfechaHora()));
 			ps.setString(2, m.getMensaje());
 			ps.setLong(3, m.getfk_idEjemplar());
 			ps.setLong(4, m.getfk_idPersona());
@@ -40,16 +40,16 @@ public class MensajeDao {
 		return 0;
 	}
 
-	public List<Mensaje> findByEjemplar(int idEjemplar) { 
+	public List<Mensaje> findByEjemplar(Long idEjemplar) { 
 		List<Mensaje> listaMensajes = new ArrayList<Mensaje>();
 		try {
 			
 			ps = con.prepareStatement("SELECT * FROM mensajes INNER JOIN ejemplares ON mensajes.fk_idEjemplar = ejemplares.id WHERE ejemplares.id=?"); 
-			ps.setInt(1, idEjemplar);
+			ps.setLong(1, idEjemplar);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				listaMensajes.add(new Mensaje( rs.getString(2), rs.getTimestamp(3).toLocalDateTime(), rs.getLong(4), rs.getLong(5)));
+				listaMensajes.add(new Mensaje(rs.getLong(1), rs.getString(2), rs.getTimestamp(3).toLocalDateTime(), rs.getLong(4), rs.getLong(5)));
 			}
 			return listaMensajes;
 			

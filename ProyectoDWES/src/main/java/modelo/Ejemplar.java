@@ -47,7 +47,7 @@ public class Ejemplar {
 			ret ="EJEMPLAR";
 			ret += "\tId: " + this.id;
 			ret += "\tNombre: " + this.nombre;
-			ret += "\tfk_codPlanta " + this.fk_codPlanta;
+			ret += "\tfk_codPlanta: " + this.fk_codPlanta;
 		return ret;
 	}
     

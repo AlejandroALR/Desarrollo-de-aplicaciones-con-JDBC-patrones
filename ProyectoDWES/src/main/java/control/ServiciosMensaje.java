@@ -25,7 +25,7 @@ public class ServiciosMensaje {
 			return MensajeDao.findByTipo(tipo);
 	}
 	
-	public List <Mensaje> findByEjemplar(int idEjemplar) {
+	public List <Mensaje> findByEjemplar(Long idEjemplar) {
 		return MensajeDao.findByEjemplar(idEjemplar);
 	}
 	

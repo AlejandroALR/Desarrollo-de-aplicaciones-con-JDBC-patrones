@@ -20,15 +20,30 @@ public class ServiciosEjemplar {
 		}
 
 		public void registrarEjemplar(Planta p, Long fk_codPlanta) {
-			
-			 nuevoId = this.findLastId()+1;
-			Ejemplar ej = new Ejemplar(nuevoId, p.getCodigo() + "_" + nuevoId, p.getCodigo());
+
+			Ejemplar ej = new Ejemplar(p.getCodigo() + "_", p.getCodigo());
 			this.insertarEjemplar(ej);
+
+			int nuevoId = this.calcularIdAcordeAltipoDePlanta(ej.getfk_codPlanta());
+			ej.setNombre(ej.getNombre()+nuevoId);
+			this.actualizarEjemplar(ej);
+			
+			
 			
 			Mensaje m = new Mensaje("mensaje ", LocalDateTime.now(), fk_codPlanta, ej.getId());
 			
 			Controlador.getServicios().getServiciosMensaje().insertarMensaje(m);
 		}
+		
+		private int actualizarEjemplar(Ejemplar ej) {
+			return EjemplarDao.actualizar(ej);
+		}
+
+		private int calcularIdAcordeAltipoDePlanta(String getfk_codPlanta) {
+			return EjemplarDao.calcularIdAcordeAltipoDePlanta(getfk_codPlanta) + 1;
+			
+		}
+
 		
 		public void filtrarEjemplares(String codigos) {
 			List<Ejemplar> Ejemplares = Controlador.getServicios().getServiciosEjemplar().findByTipo(codigos);
@@ -38,7 +53,7 @@ public class ServiciosEjemplar {
 				List<Mensaje> Mensajes = Controlador.getServicios().getServiciosMensaje().findByEjemplar(e.getId());
 				
 				int numMensajes = Mensajes.size();
-				String ultFecha = Mensajes.get(0).getFechaHora().toString();
+				String ultFecha = Mensajes.get(0).getfechaHora().toString();
 				
 				System.out.println("Ejemplar: "+e.getNombre()+", Numero de mensajes: "+numMensajes+", Ultimo mensaje: "+ultFecha);
 			}
@@ -58,7 +73,7 @@ public class ServiciosEjemplar {
 		 	System.out.println();
 		}
 		
-		public void verMensajes(int id_ej) {
+		public void verMensajes(Long id_ej) {
 			System.out.println();
 			System.out.println("Mensajes para el ejemplar "+id_ej+": ");
 			

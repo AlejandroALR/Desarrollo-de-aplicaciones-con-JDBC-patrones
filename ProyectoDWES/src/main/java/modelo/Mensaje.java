@@ -10,11 +10,19 @@ public class Mensaje {
     private Long fk_idEjemplar;
     
     
-    public Mensaje(String mensaje, LocalDateTime fechahora, Long fk_idPersona, Long fk_idEjemplar) {
+    public Mensaje(Long id, String mensaje, LocalDateTime fechahora, Long fk_idPersona, Long fk_idEjemplar) {
+    	this.id = id;
         this.mensaje = mensaje;
+        this.fechaHora = fechahora;
         this.fk_idPersona = fk_idPersona;
         this.fk_idEjemplar = fk_idEjemplar;
-        this.fechaHora = fechaHora;
+    }
+    
+    public Mensaje(String mensaje, LocalDateTime fechahora, Long fk_idPersona, Long fk_idEjemplar) {
+        this.mensaje = mensaje;
+        this.fechaHora = fechahora;
+        this.fk_idPersona = fk_idPersona;
+        this.fk_idEjemplar = fk_idEjemplar;
     }
 
     
@@ -26,12 +34,12 @@ public class Mensaje {
         this.id = id;
     }
 
-    public LocalDateTime getFechaHora() {
+    public LocalDateTime getfechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setfechaHora(LocalDateTime fechahora) {
+        this.fechaHora = fechahora;
     }
 
     public String getMensaje() {

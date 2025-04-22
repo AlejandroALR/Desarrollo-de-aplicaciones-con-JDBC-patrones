@@ -1,6 +1,7 @@
 package fachadaVivero;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import control.Controlador;
@@ -10,6 +11,7 @@ import control.ServiciosMensaje;
 import control.ServiciosPersona;
 import control.ServiciosPlanta;
 import control.ServiciosViveroCon;
+import modelo.Ejemplar;
 
 public class FachadaViveroMensajes {
 
@@ -68,20 +70,54 @@ public class FachadaViveroMensajes {
 			    } while(opcion != 3);
 			}
 	
-	public void registrarMensaje() {
-		
-		System.out.println("Introduce el codigo de ejemplar");
-		System.out.println();
-		System.out.println("Codigo de Ejemplar: ");
-		Long id = in.nextInt();
-		in.nextLine();
-		System.out.println();
-		System.out.println("Mensaje: ");
-		String mensaje = in.nextLine();
-		
-		Controlador.getServicios().getServiciosMensaje().registrarMensaje(id, portal.getCredenciales().getfk_idPersona(), mensaje);
-		
-	}
+			public void registrarMensaje() {
+				List<Ejemplar> lista = servEjem.findAll();
+
+				System.out.println("Ejemplares disponibles:");
+				for (Ejemplar e : lista) {
+					System.out.println("ID: " + e.getId() + " - Nombre: " + e.getNombre());
+				}
+
+				Long id = null;
+				boolean idValid;
+
+				do {
+					System.out.println("Introduce el codigo de ejemplar");
+					System.out.println();
+					System.out.println("Codigo de Ejemplar: ");
+					in = new Scanner(System.in);
+					id = Long.valueOf(in.nextInt());
+
+					idValid = false;
+					for (Ejemplar e : lista) {
+						if (e.getId() == id) {
+							idValid = true;
+							break;
+						}
+					}
+
+					if (!idValid) {
+						System.out.println("Id de ejemplar no valido, introduce un valor valido.");
+					}
+				} while (!idValid);
+
+				String mensaje = "";
+
+				do {
+					System.out.println();
+					System.out.println("Mensaje: ");
+					in = new Scanner(System.in);
+					mensaje = in.nextLine();
+
+					if (mensaje.trim().isEmpty()) {
+						System.out.println("El mensaje no puede estar vacio, introduce algun mensaje.");
+					}
+				} while (mensaje.trim().isEmpty());
+
+				Controlador.getServicios().getServiciosMensaje().registrarMensaje(id,
+						portal.getCredenciales().getfk_idPersona(), mensaje);
+
+			}
 	
 	public void menuFiltrarMensajes() {
 		int opcion = 0;

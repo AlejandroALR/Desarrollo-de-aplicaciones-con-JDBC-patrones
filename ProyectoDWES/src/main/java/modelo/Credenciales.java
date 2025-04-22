@@ -53,7 +53,7 @@ public class Credenciales {
 	public String toString() {
 		String ret ="";
 			ret ="CREDENCIALES";
-			ret += "\tID: " + this.id;
+			ret += "\tId: " + this.id;
 			ret += "\tUsuario: " + this.usuario;
 			ret += "\tPassword: " + this.password;
 			ret += "\tfk_idPersona: " + this.fk_idPersona;

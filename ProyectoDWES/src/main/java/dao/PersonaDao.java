@@ -56,7 +56,7 @@ public class PersonaDao {
 			ps.setString(1, email);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return new Persona(rs.getLong(1),rs.getString(2), rs.getString(3));
+				return new Persona(rs.getLong(1),rs.getString(2), rs.getString(3), rs.getLong(4));
 
 		} catch (SQLException e) {
 			System.out.println("Error al consultar por email " + e.getMessage());
@@ -72,7 +72,7 @@ public class PersonaDao {
 			ps = con.prepareStatement("SELECT * FROM personas");
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				listaPersonas.add(new Persona(rs.getString(2), rs.getString(3)));
+				listaPersonas.add(new Persona(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getLong(4)));
 			}
 			return listaPersonas;
 			

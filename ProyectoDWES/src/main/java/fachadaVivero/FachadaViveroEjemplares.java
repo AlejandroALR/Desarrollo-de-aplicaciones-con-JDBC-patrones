@@ -99,9 +99,8 @@ private static FachadaViveroEjemplares gestionEjemplares;
 		System.out.println();
 		Controlador.getServicios().getServiciosEjemplar().mostrarEjemplares();
 		System.out.println();
-		System.out.println("Codigo de ejemplar: ");
-		int idEjemplar = in.nextInt();
-
+		System.out.println("Codigo de ejemplar: ");		
+		Long idEjemplar = Long.valueOf(in.nextLong());
 		Controlador.getServicios().getServiciosEjemplar().verMensajes(idEjemplar);
 				
 	}

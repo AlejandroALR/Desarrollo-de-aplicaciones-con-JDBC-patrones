@@ -8,7 +8,7 @@ public class Planta {
 	private String codigo;
 	private String nombreComun;
 	private String nombreCientifico;
-	private List<Ejemplar> ejemplares = new ArrayList<Ejemplar>() ;
+	private List<Ejemplar> ejemplares = new ArrayList<Ejemplar>();
 	
 	public Planta(String codigo, String nombreComun, String nombreCientifico) {
 
@@ -54,8 +54,8 @@ public class Planta {
 	public String toString() {
 		String ret ="";
 			ret ="PLANTA";
-			ret += "\tCódigo: " + this.codigo;
-			ret += "\tNombre común: " + this.nombreComun;
+			ret += "\tCodigo: " + this.codigo;
+			ret += "\tNombre comun: " + this.nombreComun;
 			ret += "\tNombre científico: " + this.nombreCientifico;
 		return ret;
 	}
