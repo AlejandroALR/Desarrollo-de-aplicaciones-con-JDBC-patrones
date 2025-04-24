@@ -23,7 +23,7 @@ public class PlantaDao {
     public int insertarPlanta(Planta p) {
     	try {
     		
-    		ps = con.prepareStatement("INSERT INTO planta (codigo, nombreComun, nombrecientifico) values(?,?,?)");
+    		ps = con.prepareStatement("INSERT INTO plantas (codigo, nombreComun, nombrecientifico) values(?,?,?)");
     		ps.setString(1, p.getCodigo());
     		ps.setString(2, p.getNombreComun());
     		ps.setString(3, p.getNombreCientifico());
@@ -38,7 +38,7 @@ public class PlantaDao {
     public int modificarPlanta(Planta p) {
     	try {
     		
-    		ps = con.prepareStatement("UPDATE planta SET nombreComun=?, nombreCientifico=? WHERE codigo=?");
+    		ps = con.prepareStatement("UPDATE plantas SET nombreComun=?, nombreCientifico=? WHERE codigo=?");
     		ps.setString(1, p.getNombreComun());
     		ps.setString(2, p.getNombreCientifico());
     		ps.setString(3, p.getCodigo());
@@ -54,7 +54,7 @@ public class PlantaDao {
     public int eliminarPlanta(Planta p) {
     	try {
     		
-    		ps = con.prepareStatement("DELETE FROM planta WHERE codigo=?");
+    		ps = con.prepareStatement("DELETE FROM plantas WHERE codigo=?");
     		ps.setString(1, p.getCodigo());
     		return ps.executeUpdate();
     		
@@ -67,7 +67,7 @@ public class PlantaDao {
 	public Planta findByCodigo(String codigo) {
 		try {
 			
-			ps = con.prepareStatement("SELECT * FROM planta WHERE codigo=?");
+			ps = con.prepareStatement("SELECT * FROM plantas WHERE codigo=?");
 			ps.setString(1, codigo);
 			rs = ps.executeQuery();
 			if (rs.next())
@@ -84,7 +84,7 @@ public class PlantaDao {
 		List<Planta> Plantas = new ArrayList<Planta>();
 		try {
 			
-			ps = con.prepareStatement("SELECT * FROM planta ORDER BY codigo");
+			ps = con.prepareStatement("SELECT * FROM plantas ORDER BY codigo ASC");
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {

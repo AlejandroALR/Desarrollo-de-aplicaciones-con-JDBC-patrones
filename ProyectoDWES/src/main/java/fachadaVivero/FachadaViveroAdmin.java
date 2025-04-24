@@ -90,13 +90,16 @@ public class FachadaViveroAdmin {
 
 		System.out.println("-+-REGISTRO DE NUEVO USUARIO-+-");
 
+		boolean valido = false;
 		do {
 			System.out.println("Nombre:");
 			nombre = in.nextLine().trim();
-			if (nombre.isEmpty()) {
+			if (nombre.isEmpty() || nombre.length() <3 || nombre.length()>40) {
 				System.out.println("El nombre no puede estar vacio.");
 			}
-		} while (nombre.isEmpty());
+			else
+			valido = true;
+		} while (!valido );
 
 		do {
 			System.out.println("Email:");

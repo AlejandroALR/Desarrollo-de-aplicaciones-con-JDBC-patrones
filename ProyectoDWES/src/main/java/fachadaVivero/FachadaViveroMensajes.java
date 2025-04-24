@@ -12,30 +12,30 @@ import control.ServiciosPersona;
 import control.ServiciosPlanta;
 import control.ServiciosViveroCon;
 import modelo.Ejemplar;
+import modelo.Mensaje;
 
 public class FachadaViveroMensajes {
 
 	private static FachadaViveroMensajes gestionMensajes;
 
 	Scanner in = new Scanner(System.in);
-		
+
 	private static FachadaViveroPrincipal portal = FachadaViveroPrincipal.getPortal();
 
-
 	ServiciosViveroCon conServicios = ServiciosViveroCon.getServicios();
-	
+
 	ServiciosCredenciales servCreden = conServicios.getServiciosCredencial();
 	ServiciosEjemplar servEjem = conServicios.getServiciosEjemplar();
 	ServiciosMensaje servMens = conServicios.getServiciosMensaje();
 	ServiciosPersona servPers = conServicios.getServiciosPersona();
 	ServiciosPlanta servPlan = conServicios.getServiciosPlanta();
-	
+
 	public static FachadaViveroMensajes getPortal() {
-		if(gestionMensajes == null)
+		if (gestionMensajes == null)
 			gestionMensajes = new FachadaViveroMensajes();
 		return gestionMensajes;
 	}
-	
+
 	public void menuGestionMensajes() {
 		int opcion = 0;
 
@@ -150,6 +150,34 @@ public class FachadaViveroMensajes {
 	}
 
 	public void filtrarMensajes() {
+		Scanner in = new Scanner(System.in);
+		String palabraClave;
+		boolean continuar = true;
+
+		do {
+			System.out.println("Introduce una palabra clave para buscar en los mensajes: ");
+			palabraClave = in.nextLine().trim().toLowerCase();
+
+			List<Mensaje> mensajes = servMens.findAll();
+			boolean encontrado = false;
+
+			for (Mensaje m : mensajes) {
+				if (m.getMensaje().toLowerCase().contains(palabraClave)) {
+					System.out.println("Id: " + m.getId() + " - Mensaje: " + m.getMensaje());
+					encontrado = true;
+				}
+			}
+
+			if (!encontrado) {
+				System.out.println("No se encontraron mensajes que contengan la palabra introducida.");
+			}
+
+			System.out.println("¿Deseas buscar otra palabra clave? (s/n)");
+			String respuesta = in.nextLine().trim().toLowerCase();
+			if (!respuesta.equals("s")) {
+				continuar = false;
+			}
+		} while (continuar);
 	}
 	
 	

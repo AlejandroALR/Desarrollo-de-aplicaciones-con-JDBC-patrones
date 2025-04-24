@@ -43,7 +43,7 @@ public class ConexionBBDD {
 			
 			m.setUrl(prop.getProperty("url"));
 			m.setPassword(prop.getProperty("password"));
-			m.setUser(prop.getProperty("user"));
+			m.setUser(prop.getProperty("usuario"));
 			
 			con = m.getConnection();
 			
@@ -69,24 +69,24 @@ public class ConexionBBDD {
 	}
 	
 	public PlantaDao getPlantaDao() {
-		return new PlantaDao(con);
+		return new PlantaDao(ConexionBBDD.realizaConexion());
 	}
 	
 	public PersonaDao getPersonaDao() {
-		return new PersonaDao(con);
+		return new PersonaDao(ConexionBBDD.realizaConexion());
 	}
 	
 	public CredencialesDao getCredencialesDao() {
-		return new CredencialesDao(con);
+		return new CredencialesDao(ConexionBBDD.realizaConexion());
 	}
 	
 	public EjemplarDao getEjemplarDao() {
-		return new EjemplarDao(con);
+		return new EjemplarDao(ConexionBBDD.realizaConexion());
 	}
 	
 	
 	public MensajeDao getMensajeDao() {
-		return new MensajeDao(con);
+		return new MensajeDao(ConexionBBDD.realizaConexion());
 	}
 
 }

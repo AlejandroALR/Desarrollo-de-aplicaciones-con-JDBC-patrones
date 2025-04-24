@@ -21,7 +21,7 @@ public class EjemplarDao {
 	public long insertarEjemplar(Ejemplar ej) {
 		try {
 
-			ps = con.prepareStatement("insert into ejemplar (id, nombre, fk_codPlanta) values (?,?,?)");
+			ps = con.prepareStatement("insert into ejemplares (id, nombre, fk_codPlanta) values (?,?,?)");
 			ps.setLong(1, ej.getId());
 			ps.setString(2, ej.getNombre());
 			ps.setString(3, ej.getfk_codPlanta());
@@ -110,7 +110,7 @@ public class EjemplarDao {
 	public int actualizar(Ejemplar ej) {
 		try {
 
-			ps = con.prepareStatement("update ejemplar set nombre=?, fk_codPlanta =? WHERE id=?)");
+			ps = con.prepareStatement("update ejemplares set nombre=?, fk_codPlanta =? WHERE id=?)");
 			ps.setLong(3, ej.getId());
 			ps.setString(1, ej.getNombre());
 			ps.setString(2, ej.getfk_codPlanta());
