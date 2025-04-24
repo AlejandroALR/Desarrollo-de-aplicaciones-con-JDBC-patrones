@@ -101,11 +101,24 @@ public class ServiciosEjemplar {
 			return EjemplarDao.findAll();
 		}
 		
-		public Ejemplar findById(int id) {
+		public Ejemplar findById(Long id) {
 			return EjemplarDao.findById(id);
 		}
 		
 		public int findLastId() {
 			return EjemplarDao.findLastId();
+		}
+
+		
+		//MIRAR ESTO
+		
+		public boolean existeEjemplar(Long id) {
+		    List<Ejemplar> lista = EjemplarDao.findAll();
+		    for (Ejemplar e : lista) {
+		        if (e.getId().equals(id)) {
+		            return true;
+		        }
+		    }
+		    return false;
 		}
 }

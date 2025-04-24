@@ -33,7 +33,7 @@ public class EjemplarDao {
 		return 0;
 	}
 
-	public Ejemplar findById(int id) {
+	public Ejemplar findById(Long id) {
 		try {
 
 			ps = con.prepareStatement("SELECT * FROM ejemplares");

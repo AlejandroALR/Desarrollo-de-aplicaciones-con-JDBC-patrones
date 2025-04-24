@@ -1,6 +1,7 @@
 package fachadaVivero;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import control.Controlador;
@@ -10,6 +11,7 @@ import control.ServiciosMensaje;
 import control.ServiciosPersona;
 import control.ServiciosPlanta;
 import control.ServiciosViveroCon;
+import modelo.Ejemplar;
 import modelo.Planta;
 
 public class FachadaViveroEjemplares {
@@ -73,25 +75,31 @@ private static FachadaViveroEjemplares gestionEjemplares;
 			    } while(opcion != 4);
 			}
 	
-	public void registrarEjemplar() {
-		
-		System.out.println("Seleccione la planta de la cual desea registrar un ejemplar nuevo");
-		System.out.println();
-		portal.menuPlantas();
-		System.out.println();
-		System.out.println("Codigo de planta: ");
-		in.nextLine();
-		String codigo = in.nextLine();
-		
-		while(!Controlador.getServicios().getServiciosPlanta().validarPlanta(codigo)) {
-			System.out.println("Codigo incorrecto, vuelva a introducirlo");
-			in.nextLine();
-			codigo = in.nextLine();
-		}
-		Planta p = Controlador.getServicios().getServiciosPlanta().findByCod(codigo);
-		Controlador.getServicios().getServiciosEjemplar().registrarEjemplar(p, portal.getCredenciales().getfk_idPersona());
-				
-	}
+			public void registrarEjemplar() {
+
+				System.out.println("Seleccione la planta de la cual desea registrar un ejemplar nuevo");
+				System.out.println();
+				portal.menuPlantas();
+				System.out.println();
+
+				String codigo;
+				boolean codigoValid;
+
+				do {
+					System.out.println("Código de planta:");
+					codigo = in.nextLine().trim();
+					codigoValid = Controlador.getServicios().getServiciosPlanta().validarPlanta(codigo);
+					if (!codigoValid) {
+						System.out.println("Código incorrecto, vuelva a introducirlo.");
+					}
+				} while (!codigoValid);
+
+				Planta p = Controlador.getServicios().getServiciosPlanta().findByCod(codigo);
+				Controlador.getServicios().getServiciosEjemplar().registrarEjemplar(p,
+						portal.getCredenciales().getfk_idPersona());
+
+				System.out.println("Ejemplar registrado correctamente.");
+			}
 	
 	public void verMensajes() {
 		
@@ -99,16 +107,54 @@ private static FachadaViveroEjemplares gestionEjemplares;
 		System.out.println();
 		Controlador.getServicios().getServiciosEjemplar().mostrarEjemplares();
 		System.out.println();
-		System.out.println("Codigo de ejemplar: ");		
-		Long idEjemplar = Long.valueOf(in.nextLong());
-		Controlador.getServicios().getServiciosEjemplar().verMensajes(idEjemplar);
-				
+		
+		Long idEjemplar = null;
+		boolean valid = false;
+		
+		do {
+			System.out.println("Codigo de ejemplar: ");		
+			String entrada = in.nextLine().trim();
+			
+			try {
+				idEjemplar = Long.valueOf(entrada);
+	            if (Controlador.getServicios().getServiciosEjemplar().existeEjemplar(idEjemplar)) {
+	                valid = true;
+			} else {
+                System.out.println("El ejemplar no existe. Intenta con otro codigo.");
+			}    
+		} catch (NumberFormatException e) {
+            System.out.println("Introduce un numero válido.");
+		}
+	} while (!valid);
+		
+	Controlador.getServicios().getServiciosEjemplar().verMensajes(idEjemplar);
 	}
 	
+	
 	public void filtrarEjemplares() {
+	    Scanner in = new Scanner(System.in);
 
-		
+	    System.out.println("Introduce el nombre del tipo de planta que deseas buscar:");
+	    String nombrePlanta = in.nextLine().trim().toLowerCase();
+
+	    List <Ejemplar> ejemplares = servEjem.findAll();
+
+	    boolean encontrado = false;
+
+	    for (Ejemplar e : ejemplares) {
+	        Planta p = Controlador.getServicios().getServiciosPlanta().findByCod(e.getfk_codPlanta());
+	        if (p.getNombreComun().toLowerCase().contains(nombrePlanta)) {
+	            System.out.println("Id: " + e.getId() + " - Nombre Comun: " + p.getNombreComun() + " (" + p.getNombreCientifico() + ")");
+	            encontrado = true;
+	        }
+	    }
+
+	    if (!encontrado) {
+	        System.out.println("No se encontraron ejemplares con plantas que coincidan con ese nombre.");
+	    }
 	}
+
+
 	
 		
 	}
