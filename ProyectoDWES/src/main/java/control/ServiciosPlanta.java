@@ -18,11 +18,7 @@ public class ServiciosPlanta {
 	}
 	
 	public boolean validarPlanta(String codigo) {
-		if(this.findByCod(codigo)== null) {
-			return true;
-		}else {
-			return false;
-		}
+	    return this.findByCod(codigo) != null;
 	}
 	
 	public int insertar(Planta p) {

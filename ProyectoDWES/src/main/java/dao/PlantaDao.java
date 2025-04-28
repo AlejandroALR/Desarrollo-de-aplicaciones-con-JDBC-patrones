@@ -23,7 +23,7 @@ public class PlantaDao {
     public int insertarPlanta(Planta p) {
     	try {
     		
-    		ps = con.prepareStatement("INSERT INTO plantas (codigo, nombreComun, nombrecientifico) values(?,?,?)");
+    		ps = con.prepareStatement("INSERT INTO plantas (codigo, nombreComun, nombreCientifico) values(?,?,?)");
     		ps.setString(1, p.getCodigo());
     		ps.setString(2, p.getNombreComun());
     		ps.setString(3, p.getNombreCientifico());

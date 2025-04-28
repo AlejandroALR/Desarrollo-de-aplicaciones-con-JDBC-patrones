@@ -100,10 +100,13 @@ public class FachadaViveroPlantas {
 				}
 			}
 
-			if (Controlador.getServicios().getServiciosPlanta().validarPlanta(codigo)) {
-				System.out.println("Este codigo ya existe en la base de datos.");
-				codigoValid = false;
+			if (codigoValid) {
+			    if (Controlador.getServicios().getServiciosPlanta().validarPlanta(codigo)) {
+			        System.out.println("Este codigo ya existe en la base de datos.");
+			        codigoValid = false;
+			    }
 			}
+
 
 		} while (!codigoValid);
 
