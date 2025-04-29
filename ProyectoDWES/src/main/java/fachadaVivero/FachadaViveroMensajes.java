@@ -13,6 +13,7 @@ import control.ServiciosPlanta;
 import control.ServiciosViveroCon;
 import modelo.Ejemplar;
 import modelo.Mensaje;
+import modelo.Planta;
 
 public class FachadaViveroMensajes {
 
@@ -43,7 +44,7 @@ public class FachadaViveroMensajes {
 			System.out.println("-+-MENU DE GESTION DE MENSAJES-+-");
 			System.out.println("1 - Registrar Nuevo Mensaje");
 			System.out.println("2 - Filtrar un Nuevo Mensaje");
-			System.out.println("3 - Cerrar Sesion");
+			System.out.println("0 - VOLVER");
 
 			try {
 				opcion = in.nextInt();
@@ -59,26 +60,26 @@ public class FachadaViveroMensajes {
 				case 2:
 					this.menuFiltrarMensajes();
 					break;
-				case 3:
-					break;
+            	case 0: System.out.println("Gracias por utilizar este programa!");
+        			break;
 				}
 
 			} catch (InputMismatchException e) {
-				System.out.println("ERROR - Ingresa un numero valido");
+				System.out.println("ERROR - Ingresa un numero Valido");
 				in.nextLine();
 			}
-		} while (opcion != 3);
+		} while (opcion != 0);
 	}
 
 	public void registrarMensaje() {
-		List<Ejemplar> lista = servEjem.findAll();
+		List<Planta> lista = servPlan.findAll();
 
 		System.out.println("Ejemplares disponibles:");
-		for (Ejemplar e : lista) {
-			System.out.println("Id: " + e.getId() + " - Nombre: " + e.getNombre());
+		for (Planta p : lista) {
+			System.out.println("Codigo: " + p.getCodigo() + " - Nombre: " + p.getNombreComun());
 		}
 
-		Long id = null;
+		Long codigo;
 		boolean idValid;
 
 		do {
@@ -86,18 +87,14 @@ public class FachadaViveroMensajes {
 			System.out.println();
 			System.out.println("Codigo de Ejemplar: ");
 			in = new Scanner(System.in);
-			id = Long.valueOf(in.nextInt());
+			codigo = Long.valueOf(in.nextInt());
 
 			idValid = false;
-			for (Ejemplar e : lista) {
-				if (e.getId() == id) {
+			for (Planta p : lista) {
+				if (p.getCodigo().equals(codigo)) {
 					idValid = true;
 					break;
 				}
-			}
-
-			if (!idValid) {
-				System.out.println("Id de ejemplar no valido, introduce un valor valido.");
 			}
 		} while (!idValid);
 
@@ -114,7 +111,7 @@ public class FachadaViveroMensajes {
 			}
 		} while (mensaje.trim().isEmpty());
 
-		Controlador.getServicios().getServiciosMensaje().registrarMensaje(id,
+		Controlador.getServicios().getServiciosMensaje().registrarMensaje(codigo,
 				portal.getCredenciales().getfk_idPersona(), mensaje);
 
 	}
@@ -125,7 +122,7 @@ public class FachadaViveroMensajes {
 		do {
 			System.out.println("-+-MENU DE FILTRAR MENSAJES-+-");
 			System.out.println("1 - Filtrar un Nuevo Mensaje");
-			System.out.println("2 - Cerrar Sesion");
+			System.out.println("2 - VOLVER");
 
 			try {
 				opcion = in.nextInt();
@@ -143,7 +140,7 @@ public class FachadaViveroMensajes {
 				}
 
 			} catch (InputMismatchException e) {
-				System.out.println("ERROR - Ingresa un numero valido");
+				System.out.println("ERROR - Ingresa un numero VALIDO");
 				in.nextLine();
 			}
 		} while (opcion != 2);

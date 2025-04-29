@@ -80,17 +80,13 @@ public class FachadaViveroPlantas {
 		}
 
 		String codigo;
-		boolean codigoValid;
-
+		boolean codigoValid = false;
+		System.out.println("Registra los datos de la planta nueva");
 		do {
-			System.out.println("Registra los datos de la planta nueva");
-			while (!in.hasNextInt()) {
-				System.out.println("Por favor, introduce un numero entero.");
-				in.next();
-			}
-			codigo = String.valueOf(in.nextInt());
-			in.nextLine();
 
+			System.out.println("Por favor, introduce CODIGO de la nueva planta.");
+			in= new Scanner (System.in);
+			codigo = in.nextLine();
 			codigoValid = true;
 			for (Planta p : lista) {
 				if (p.getCodigo().equals(codigo)) {
@@ -99,15 +95,6 @@ public class FachadaViveroPlantas {
 					break;
 				}
 			}
-
-			if (codigoValid) {
-			    if (Controlador.getServicios().getServiciosPlanta().validarPlanta(codigo)) {
-			        System.out.println("Este codigo ya existe en la base de datos.");
-			        codigoValid = false;
-			    }
-			}
-
-
 		} while (!codigoValid);
 
 		String nombreComun;
@@ -151,6 +138,7 @@ public class FachadaViveroPlantas {
 		Planta plantaExiste = null;
 
 		do {
+			in= new Scanner(System.in);
 			System.out.println("Introduce el codigo de planta que quiere modificar");
 			codigo = in.nextLine().trim();
 
@@ -198,7 +186,5 @@ public class FachadaViveroPlantas {
 		} else {
 			System.out.println("Modificacion cancelada.");
 		}
-	}	
+	}
 }
-		
-

@@ -24,7 +24,6 @@ public class FachadaViveroPrincipal {
 
 	private Credenciales credenciales;
 
-
 	ServiciosViveroCon conServicios = ServiciosViveroCon.getServicios();
 	
 	ServiciosCredenciales servCreden = conServicios.getServiciosCredencial();
@@ -49,10 +48,11 @@ public class FachadaViveroPrincipal {
         do {
     		System.out.println("1 - Ver Plantas");
     		System.out.println("2 - Login");
+    		System.out.println("0 - SALIR");
     		
     		try {
 	            opcion = in.nextInt();
-	            if (opcion < 1 || opcion > 2) {
+	            if (opcion < 0 || opcion > 2) {
 	                System.out.println("Opción no valida. Use uno de los numeros indicados");
 	                continue;
             }
@@ -63,12 +63,14 @@ public class FachadaViveroPrincipal {
             	case 2:
             		portal.menuLogin();
             		break;
+            	case 0: System.out.println("Gracias por utilizar este programa!");
+            		break;
             }
     		} catch (InputMismatchException e) {
 				System.out.println("ERROR - Ingresa un numero valido");
 				in.nextLine();
 	        }
-        } while(opcion != 2);
+        } while(opcion != 0);
 	}
 	
 	public void menuLogin() {
@@ -79,21 +81,15 @@ public class FachadaViveroPrincipal {
 			System.out.println("Bienvenido admin");
 			FachadaViveroPrincipal.admin.menuAdmin();	
 		} else {
-			boolean loginCorrecto = false;
-			while(!loginCorrecto) {
 				if(!Controlador.getServicios().getServiciosCredenciales().validarCredenciales(c)) {
 					System.out.println("Usuario o Contraseña incorrectos");
-					System.out.println();
-					c = this.pedirCredenciales();
 				} else {
-					loginCorrecto = true;
-					credenciales = Controlador.getServicios().getServiciosCredenciales().findByUsuario(c.getUsuario());
-					System.out.println("outprint login"+credenciales);
+					this.credenciales = Controlador.getServicios().getServiciosCredenciales().findByUsuario(c.getUsuario());
+					System.out.println("Hola "+c.getUsuario());
+					FachadaViveroPrincipal.personal.menuPersonal();
 				}
 			
-			}
-			System.out.println("Hola "+c.getUsuario());
-			FachadaViveroPrincipal.personal.menuPersonal();		
+					
 		}
 	}
 	
@@ -104,9 +100,9 @@ public class FachadaViveroPrincipal {
 		System.out.println("Contraseña: ");
 		String contraseña = in.next();
 		
-		Credenciales c = new Credenciales(usuario, contraseña);
+		Credenciales credenciales = new Credenciales(usuario, contraseña);
 		
-		return c;
+		return credenciales;
 	}
 	
 	public void menuPlantas() {

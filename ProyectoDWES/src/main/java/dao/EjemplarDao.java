@@ -21,10 +21,10 @@ public class EjemplarDao {
 	public long insertarEjemplar(Ejemplar ej) {
 		try {
 
-			ps = con.prepareStatement("insert into ejemplares (id, nombre, fk_codPlanta) values (?,?,?)");
+			ps = con.prepareStatement("insert into ejemplares (id, nombre, fk_planta) values (?,?,?)");
 			ps.setLong(1, ej.getId());
 			ps.setString(2, ej.getNombre());
-			ps.setString(3, ej.getfk_codPlanta());
+			ps.setString(3, ej.getfk_planta());
 			return ps.executeUpdate();
 
 		} catch (SQLException e) {
@@ -91,7 +91,7 @@ public class EjemplarDao {
 		try {
 
 			ps = con.prepareStatement(
-					"SELECT * FROM ejemplares INNER JOIN plantas ON ejemplares.fk_codPlanta = plantas.codigo WHERE plantas.codigo IN (?)");
+					"SELECT * FROM ejemplares INNER JOIN plantas ON ejemplares.fk_planta = plantas.codigo WHERE plantas.codigo IN (?)");
 			ps.setString(1, tipo);
 			rs = ps.executeQuery();
 
@@ -110,10 +110,10 @@ public class EjemplarDao {
 	public int actualizar(Ejemplar ej) {
 		try {
 
-			ps = con.prepareStatement("update ejemplares set nombre=?, fk_codPlanta =? WHERE id=?)");
+			ps = con.prepareStatement("update ejemplares set nombre=?, fk_planta =? WHERE id=?)");
 			ps.setLong(3, ej.getId());
 			ps.setString(1, ej.getNombre());
-			ps.setString(2, ej.getfk_codPlanta());
+			ps.setString(2, ej.getfk_planta());
 			return ps.executeUpdate();
 
 		} catch (SQLException e) {

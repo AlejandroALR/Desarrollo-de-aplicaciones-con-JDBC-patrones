@@ -19,18 +19,18 @@ public class ServiciosEjemplar {
 			EjemplarDao = (EjemplarDao) con.getEjemplarDao();
 		}
 
-		public void registrarEjemplar(Planta p, Long fk_codPlanta) {
+		public void registrarEjemplar(Planta p, Long fk_IdPersona) {
 
 			Ejemplar ej = new Ejemplar(p.getCodigo() + "_", p.getCodigo());
 			this.insertarEjemplar(ej);
 
-			int nuevoId = this.calcularIdAcordeAltipoDePlanta(ej.getfk_codPlanta());
+			int nuevoId = this.calcularIdAcordeAltipoDePlanta(ej.getfk_planta());
 			ej.setNombre(ej.getNombre()+nuevoId);
 			this.actualizarEjemplar(ej);
 			
 			
 			
-			Mensaje m = new Mensaje("mensaje ", LocalDateTime.now(), fk_codPlanta, ej.getId());
+			Mensaje m = new Mensaje("mensaje ", LocalDateTime.now(), fk_IdPersona, ej.getId());
 			
 			Controlador.getServicios().getServiciosMensaje().insertarMensaje(m);
 		}
