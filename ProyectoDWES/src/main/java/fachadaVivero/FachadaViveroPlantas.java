@@ -42,11 +42,11 @@ public class FachadaViveroPlantas {
 			System.out.println("-+-MENU GESTION PLANTAS-+-");
 			System.out.println("1 - Registrar Nueva Planta");
 			System.out.println("2 - Modificar Planta");
-			System.out.println("3 - Cerrar Sesion");
+			System.out.println("0 - VOLVER");
 
 			try {
 				opcion = in.nextInt();
-				if (opcion < 1 || opcion > 3) {
+				if (opcion < 1 || opcion > 2) {
 					System.out.println("Opcion no valida. Ingresa un numero valido");
 					continue;
 				}
@@ -58,16 +58,13 @@ public class FachadaViveroPlantas {
 				case 2:
 					this.modificarPlantas();
 					break;
-				case 3:
-					break;
-
 				}
 
 			} catch (InputMismatchException e) {
 				System.out.println("ERROR - Ingresa un numero valido");
 				in.nextLine();
 			}
-		} while (opcion != 3);
+		} while (opcion != 0);
 	}
 
 	public void registrarPlantas() {

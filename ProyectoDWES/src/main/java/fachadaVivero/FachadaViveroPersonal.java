@@ -43,7 +43,7 @@ public class FachadaViveroPersonal {
 	    		System.out.println("1 - Mostrar Plantas");
 	    		System.out.println("2 - Gestion de los Ejemplares");
 		        System.out.println("3 - Gestion de los Mensajes");
-	    		System.out.println("4 - Cerrar Sesion");
+	    		System.out.println("0 - Volver");
 	            
 	    		try {
 	    		opcion = in.nextInt();
@@ -64,12 +64,14 @@ public class FachadaViveroPersonal {
 	            	case 4:
 	            		portal.menuPrincipal();
 	            		break;
+	            	case 0: System.out.println("Hasta la proxima!");
+	        			break;
 	            }
 	    		  } catch (InputMismatchException e) {
 	    				System.out.println("ERROR - Ingresa un numero valido");
 	    				in.nextLine();
 	    	        }
-	        } while(opcion != 4);
+	        } while(opcion != 0);
 		}
 
 	

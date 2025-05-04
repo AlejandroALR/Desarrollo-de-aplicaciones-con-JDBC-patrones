@@ -40,19 +40,19 @@ public class FachadaViveroAdmin {
 
 		int opcion = 0;
 		do {
-			System.out.println("-+-MENU ADMINISTRADOR GENERAL-+-");
+			System.out.println("-+- MENU ADMINISTRADOR -+-");
 			System.out.println("Seleccione una opcion:");
 			System.out.println("1 - Ver Plantas");
 			System.out.println("2 - Registrar Persona");
 			System.out.println("3 - Gestion Plantas");
 			System.out.println("4 - Gestion Ejemplares");
 			System.out.println("5 - Gestion Mensajes");
-			System.out.println("6 - Cerrar Sesion");
+			System.out.println("0 - Cerrar Sesion");
 
 			try {
 				opcion = in.nextInt();
 
-				if (opcion < 1 || opcion > 6) {
+				if (opcion < 1 || opcion > 7) {
 					System.out.println("Opción incorrecta.");
 					continue;
 				}
@@ -76,12 +76,14 @@ public class FachadaViveroAdmin {
 				case 6:
 					portal.menuPrincipal();
 					break;
+            	case 0: System.out.println("Hasta la proxima!");
+        			break;
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("ERROR. Ingrese un número positivo valido.");
 				in.nextLine();
 			}
-		} while (opcion != 6);
+		} while (opcion != 0);
 	}
 
 	public void registroPersona() {

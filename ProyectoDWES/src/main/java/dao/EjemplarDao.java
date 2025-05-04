@@ -20,15 +20,28 @@ public class EjemplarDao {
 
 	public long insertarEjemplar(Ejemplar ej) {
 		try {
+			ps = con.prepareStatement("INSERT INTO ejemplares (nombre, fk_planta) VALUES (?, ?)",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, ej.getNombre());
+			ps.setString(2, ej.getfk_planta());
 
-			ps = con.prepareStatement("insert into ejemplares (id, nombre, fk_planta) values (?,?,?)");
-			ps.setLong(1, ej.getId());
-			ps.setString(2, ej.getNombre());
-			ps.setString(3, ej.getfk_planta());
-			return ps.executeUpdate();
+			int filasAfectadas = ps.executeUpdate();
+			if (filasAfectadas == 0) {
+				throw new SQLException("No se pudo insertar el ejemplar.");
+			}
+
+			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					long idGenerado = generatedKeys.getLong(1);
+					ej.setId(idGenerado);
+					return idGenerado;
+				} else {
+					throw new SQLException("No se generó ningún ID para el ejemplar.");
+				}
+			}
 
 		} catch (SQLException e) {
-			System.out.println("Error al insertar en ejemplar" + e.getMessage());
+			System.out.println("Error al insertar en ejemplar: " + e.getMessage());
 		}
 		return 0;
 	}
@@ -49,6 +62,27 @@ public class EjemplarDao {
 		}
 		return null;
 	}
+	
+	public Ejemplar findByNombre(String nombre) {
+	    try {
+	        ps = con.prepareStatement("SELECT * FROM ejemplares WHERE nombre = ?");
+	        ps.setString(1, nombre);
+	        rs = ps.executeQuery();
+
+	        if (rs.next()) {
+	            return new Ejemplar(
+	                rs.getLong("id"),
+	                rs.getString("nombre"),
+	                rs.getString("fk_planta")
+	            );
+	        }
+
+	    } catch (SQLException e) {
+	        System.out.println("Error al buscar ejemplar por nombre: " + e.getMessage());
+	    }
+	    return null;
+	}
+
 
 	public int findLastId() {
 		try {
@@ -110,7 +144,7 @@ public class EjemplarDao {
 	public int actualizar(Ejemplar ej) {
 		try {
 
-			ps = con.prepareStatement("update ejemplares set nombre=?, fk_planta =? WHERE id=?)");
+			ps = con.prepareStatement("UPDATE ejemplares SET nombre = ?, fk_planta = ? WHERE id = ?");
 			ps.setLong(3, ej.getId());
 			ps.setString(1, ej.getNombre());
 			ps.setString(2, ej.getfk_planta());
@@ -124,8 +158,8 @@ public class EjemplarDao {
 	}
 
 	public int calcularIdAcordeAltipoDePlanta(String getfk_codPlanta) {
-		List<Ejemplar> ejemplaresdetipoCodPlanta=this.findByTipo(getfk_codPlanta);
-		
+		List<Ejemplar> ejemplaresdetipoCodPlanta = this.findByTipo(getfk_codPlanta);
+
 		return ejemplaresdetipoCodPlanta.size();
 	}
 

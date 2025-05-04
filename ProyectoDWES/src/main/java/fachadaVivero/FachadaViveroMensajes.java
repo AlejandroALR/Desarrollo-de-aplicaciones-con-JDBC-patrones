@@ -72,49 +72,50 @@ public class FachadaViveroMensajes {
 	}
 
 	public void registrarMensaje() {
-		List<Planta> lista = servPlan.findAll();
+	    List<Ejemplar> lista = servEjem.findAll();
 
-		System.out.println("Ejemplares disponibles:");
-		for (Planta p : lista) {
-			System.out.println("Codigo: " + p.getCodigo() + " - Nombre: " + p.getNombreComun());
-		}
+	    System.out.println("Ejemplares disponibles:");
+	    for (Ejemplar e : lista) {
+	        System.out.println("ID: " + e.getId() + " - Nombre: " + e.getNombre() + " (Tipo: " + e.getfk_planta() + ")");
+	    }
 
-		Long codigo;
-		boolean idValid;
+	    Long idEjemplar = null;
+	    boolean idValid;
 
-		do {
-			System.out.println("Introduce el codigo de ejemplar");
-			System.out.println();
-			System.out.println("Codigo de Ejemplar: ");
-			in = new Scanner(System.in);
-			codigo = Long.valueOf(in.nextInt());
+	    do {
+	        System.out.println("Introduce el ID del ejemplar:");
+	        in = new Scanner(System.in);
+	        try {
+	            idEjemplar = Long.valueOf(in.nextLine().trim());
+	            idValid = servEjem.existeEjemplar(idEjemplar);
+	            if (!idValid) {
+	                System.out.println("El ejemplar no existe. Intenta con otro ID.");
+	            }
+	        } catch (NumberFormatException e) {
+	            System.out.println("ERROR - Ingresa un número válido.");
+	            idValid = false;
+	        }
+	    } while (!idValid);
 
-			idValid = false;
-			for (Planta p : lista) {
-				if (p.getCodigo().equals(codigo)) {
-					idValid = true;
-					break;
-				}
-			}
-		} while (!idValid);
+	    String mensaje;
+	    do {
+	        System.out.println("Mensaje: ");
+	        mensaje = in.nextLine();
+	        if (mensaje.trim().isEmpty()) {
+	            System.out.println("El mensaje no puede estar vacío. Intenta de nuevo.");
+	        }
+	    } while (mensaje.trim().isEmpty());
 
-		String mensaje = "";
+	    Long idPersona = portal.getCredenciales().getfk_idPersona();
+	    if (idPersona == null) {
+	        System.out.println("Error: no hay usuario autenticado.");
+	        return;
+	    }
 
-		do {
-			System.out.println();
-			System.out.println("Mensaje: ");
-			in = new Scanner(System.in);
-			mensaje = in.nextLine();
-
-			if (mensaje.trim().isEmpty()) {
-				System.out.println("El mensaje no puede estar vacio, introduce algun mensaje.");
-			}
-		} while (mensaje.trim().isEmpty());
-
-		Controlador.getServicios().getServiciosMensaje().registrarMensaje(codigo,
-				portal.getCredenciales().getfk_idPersona(), mensaje);
-
+	    Controlador.getServicios().getServiciosMensaje().registrarMensaje(idEjemplar, idPersona, mensaje);
+	    System.out.println("Mensaje registrado correctamente.");
 	}
+
 
 	public void menuFiltrarMensajes() {
 		int opcion = 0;
@@ -156,6 +157,12 @@ public class FachadaViveroMensajes {
 			palabraClave = in.nextLine().trim().toLowerCase();
 
 			List<Mensaje> mensajes = servMens.findAll();
+			
+	        if (mensajes == null) {
+	            System.out.println("Error al recuperar los mensajes. Intenta más tarde.");
+	            return;
+	        }
+	        
 			boolean encontrado = false;
 
 			for (Mensaje m : mensajes) {

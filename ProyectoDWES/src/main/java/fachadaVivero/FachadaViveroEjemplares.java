@@ -44,11 +44,12 @@ public class FachadaViveroEjemplares {
 			System.out.println("1 - Registrar Nuevo Ejemplar");
 			System.out.println("2 - Filtrar Ejemplares por Tipo");
 			System.out.println("3 - Ver Mensajes de Seguimiento");
-			System.out.println("4 - Cerrar Sesion");
+			System.out.println("0 - Volver");
 
 			try {
 				opcion = in.nextInt();
-				if (opcion < 1 || opcion > 4) {
+				in.nextLine();
+				if (opcion < 1 || opcion > 3) {
 					System.out.println("Opcion no valida. Ingresa un numero valido");
 					continue;
 				}
@@ -63,19 +64,20 @@ public class FachadaViveroEjemplares {
 				case 3:
 					this.verMensajes();
 					break;
-				case 4:
-					break;
 				}
 
 			} catch (InputMismatchException e) {
 				System.out.println("ERROR - Ingresa un numero valido");
 				in.nextLine();
 			}
-		} while (opcion != 4);
+		} while (opcion != 0);
 	}
 
 	public void registrarEjemplar() {
-
+//	    if (portal.getCredenciales() == null) {
+//	        System.out.println("Debes iniciar sesión para registrar un ejemplar.");
+//	        return;
+//	    }
 		System.out.println("Seleccione la planta de la cual desea registrar un ejemplar nuevo");
 		System.out.println();
 		portal.menuPlantas();
@@ -101,34 +103,32 @@ public class FachadaViveroEjemplares {
 	}
 
 	public void verMensajes() {
+	    System.out.println("Seleccione el ejemplar del cual desea mostrar sus mensajes");
+	    System.out.println();
+	    Controlador.getServicios().getServiciosEjemplar().mostrarEjemplares();  // Ya muestra los nombres
+	    System.out.println();
 
-		System.out.println("Seleccione la planta de la cual desea mostrar sus mensajes");
-		System.out.println();
-		Controlador.getServicios().getServiciosEjemplar().mostrarEjemplares();
-		System.out.println();
+	    String nombreEjemplar;
+	    Ejemplar ej = null;
+	    boolean valid = false;
 
-		Long idEjemplar = null;
-		boolean valid = false;
+	    do {
+	        System.out.print("Nombre del ejemplar (ej. ROSA_4): ");
+	        nombreEjemplar = in.nextLine().trim();
 
-		do {
-			System.out.println("Codigo de ejemplar: ");
-			String entrada = in.nextLine().trim();
+	        ej = Controlador.getServicios().getServiciosEjemplar().findByNombre(nombreEjemplar);
+	        if (ej != null) {
+	            valid = true;
+	        } else {
+	            System.out.println("Ejemplar no encontrado. Intenta con otro nombre.");
+	        }
 
-			try {
-				idEjemplar = Long.valueOf(entrada);
-				if (Controlador.getServicios().getServiciosEjemplar().existeEjemplar(idEjemplar)) {
-					valid = true;
-				} else {
-					System.out.println("El ejemplar no existe. Intenta con otro codigo.");
-				}
-			} catch (NumberFormatException e) {
-				System.out.println("Introduce un numero válido.");
-			}
-		} while (!valid);
+	    } while (!valid);
 
-		Controlador.getServicios().getServiciosEjemplar().verMensajes(idEjemplar);
+	    Controlador.getServicios().getServiciosEjemplar().verMensajes(ej.getId());
 	}
 
+	
 	public void filtrarEjemplares() {
 		Scanner in = new Scanner(System.in);
 

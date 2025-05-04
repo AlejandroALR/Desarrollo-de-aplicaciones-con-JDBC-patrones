@@ -63,7 +63,7 @@ public class FachadaViveroPrincipal {
             	case 2:
             		portal.menuLogin();
             		break;
-            	case 0: System.out.println("Gracias por utilizar este programa!");
+            	case 0: System.out.println("Gracias por utilizar este programa! Nos vemos pronto");
             		break;
             }
     		} catch (InputMismatchException e) {
@@ -79,6 +79,8 @@ public class FachadaViveroPrincipal {
 		
 		if(c.getUsuario().equals("admin") && c.getPassword().equals("admin")) {
 			System.out.println("Bienvenido admin");
+			c.setfk_idPersona(0L);
+			this.credenciales = c;
 			FachadaViveroPrincipal.admin.menuAdmin();	
 		} else {
 				if(!Controlador.getServicios().getServiciosCredenciales().validarCredenciales(c)) {
