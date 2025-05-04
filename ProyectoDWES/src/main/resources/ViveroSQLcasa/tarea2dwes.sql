@@ -60,16 +60,15 @@ CREATE TABLE `ejemplares` (
 --
 
 INSERT INTO `ejemplares` (`id`, `nombre`, `fk_planta`) VALUES
-(1, 'ROSA_', 'ROSA'),
-(2, 'ROSA_', 'ROSA'),
-(3, 'ROSA_4', 'ROSA'),
-(4, 'ROSA_5', 'ROSA'),
+(1, 'ROSA_1', 'ROSA'),
+(2, 'ROSA_2', 'ROSA'),
+(3, 'ROSA_3', 'ROSA'),
+(4, 'MARGARITA_1', 'MARGARITA'),
 (5, 'MARGARITA_2', 'MARGARITA'),
-(6, 'MARGARITA_3', 'MARGARITA'),
+(6, 'AMAPOLA_1', 'AMAPOLA'),
 (7, 'AMAPOLA_2', 'AMAPOLA'),
 (8, 'AMAPOLA_3', 'AMAPOLA'),
-(9, 'AMAPOLA_4', 'AMAPOLA'),
-(10, 'AMAPOLA_5', 'AMAPOLA');
+(9, 'AMAPOLA_4', 'AMAPOLA');
 
 -- --------------------------------------------------------
 

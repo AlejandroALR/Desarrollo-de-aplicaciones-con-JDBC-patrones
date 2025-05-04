@@ -14,7 +14,7 @@ public class CredencialesDao {
     public CredencialesDao(Connection con) {
         this.con = con;
     }
-
+ 
 	public int insertarCredenciales(Credenciales c) {
 		try {
 			ps = con.prepareStatement("INSERT INTO credenciales (usuario, password, fk_idPersona) VALUES (?,?,?)");
