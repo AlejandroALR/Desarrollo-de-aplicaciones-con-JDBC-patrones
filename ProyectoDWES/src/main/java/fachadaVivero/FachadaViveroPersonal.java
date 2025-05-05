@@ -47,7 +47,7 @@ public class FachadaViveroPersonal {
 	            
 	    		try {
 	    		opcion = in.nextInt();
-	            if (opcion < 1 || opcion > 4) {
+	            if (opcion < 0 || opcion > 4) {
 	                System.out.println("Opción incorrecta.");
 	                continue;
 	            }

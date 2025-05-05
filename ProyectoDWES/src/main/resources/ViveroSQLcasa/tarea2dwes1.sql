@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-05-2025 a las 01:59:43
+-- Tiempo de generación: 05-05-2025 a las 12:38:44
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tarea2dwes`
+-- Base de datos: `tarea2dwes1`
 --
 
 -- --------------------------------------------------------
@@ -39,9 +39,9 @@ CREATE TABLE `credenciales` (
 --
 
 INSERT INTO `credenciales` (`id`, `usuario`, `password`, `fk_idPersona`) VALUES
-(1, 'admin', 'admin', NULL),
-(2, 'alex', 'alex', NULL),
-(3, 'luis', 'luis', NULL);
+(1, 'admin', 'admin', 0),
+(2, 'alex', 'alex', 2),
+(3, 'luis', 'luis', 3);
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,14 @@ INSERT INTO `ejemplares` (`id`, `nombre`, `fk_planta`) VALUES
 (6, 'AMAPOLA_1', 'AMAPOLA'),
 (7, 'AMAPOLA_2', 'AMAPOLA'),
 (8, 'AMAPOLA_3', 'AMAPOLA'),
-(9, 'AMAPOLA_4', 'AMAPOLA');
+(9, 'AMAPOLA_4', 'AMAPOLA'),
+(11, 'PETUNIA_1', 'PETUNIA'),
+(12, 'MANZANO_1', 'MANZANO'),
+(13, 'PERAL_1', 'PERAL'),
+(14, 'OLIVO_1', 'OLIVO'),
+(15, 'OLIVO_2', 'OLIVO'),
+(16, 'OLIVO_3', 'OLIVO'),
+(17, 'OLIVO_4', 'OLIVO');
 
 -- --------------------------------------------------------
 
@@ -95,7 +102,12 @@ INSERT INTO `mensajes` (`id`, `fechaHora`, `mensaje`, `fk_idPersona`, `fk_idEjem
 (7, '2025-05-04 01:32:32', 'mensaje ', 2, 8),
 (8, '2025-05-04 01:51:00', 'mensaje ', 0, 9),
 (9, '2025-05-04 01:51:58', 'mensaje ', 0, 10),
-(10, '2025-05-04 01:52:54', 'Esta rosa esta mal por el nombre que se repite', 0, 1);
+(10, '2025-05-04 01:52:54', 'Esta rosa esta mal por el nombre que se repite', 0, 1),
+(11, '2025-05-05 10:30:43', 'mensaje ', 0, 11),
+(12, '2025-05-05 10:31:57', 'petunia crece correctamente', 0, 11),
+(13, '2025-05-05 11:51:08', 'mensaje ', 0, 12),
+(14, '2025-05-05 11:59:27', 'mensaje ', 0, 14),
+(15, '2025-05-05 12:23:11', 'admin insertó el ejemplar OLIVO_4 el 2025-05-05T12:23:11.321706100', 0, 17);
 
 -- --------------------------------------------------------
 
@@ -115,14 +127,10 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`id`, `nombre`, `email`, `fk_idCredenciales`) VALUES
-(0, 'admin', 'admin@vivero.com', NULL),
-(2, 'alex', 'alex@vivero.es', NULL),
-(3, 'luis', 'luis@vivero.es', NULL),
-(4, 'josemi', 'josemi@vivero.es', NULL),
-(5, 'jose carlos', 'jc@vivero.es', NULL),
-(6, 'alberto', 'alberto@vivero.es', NULL),
-(8, 'pablo', 'pablo@vivero.es', NULL),
-(9, 'isabel', 'isabel@vivero.es', NULL);
+(0, 'admin', 'admin@vivero.com', 1),
+(2, 'alex', 'alex@vivero.es', 2),
+(3, 'luis', 'luis@vivero.es', 3),
+(11, 'oscar mateos', 'oscar@vivero.es', NULL);
 
 -- --------------------------------------------------------
 
@@ -144,7 +152,11 @@ INSERT INTO `plantas` (`codigo`, `nombreComun`, `nombreCientifico`) VALUES
 ('AMAPOLA', 'amapola', 'amapolade'),
 ('CAMELIA', 'camelia', 'cameliade'),
 ('GIRASOL', 'girasol', 'girasolde'),
+('MANZANO', 'manzano comun', 'manzanode comun'),
 ('MARGARITA', 'margarita', 'margaritade'),
+('OLIVO', 'olivo', 'olivode'),
+('PERAL', 'peral', 'peralde'),
+('PETUNIA', 'petunia', 'petuniade'),
 ('ROSA', 'rosa', 'rosade'),
 ('TULIPAN', 'tulipan', 'tulipande');
 
@@ -200,19 +212,19 @@ ALTER TABLE `credenciales`
 -- AUTO_INCREMENT de la tabla `ejemplares`
 --
 ALTER TABLE `ejemplares`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
@@ -223,19 +235,6 @@ ALTER TABLE `personas`
 --
 ALTER TABLE `ejemplares`
   ADD CONSTRAINT `ejemplares_ibfk_1` FOREIGN KEY (`fk_planta`) REFERENCES `plantas` (`codigo`);
-
---
--- Filtros para la tabla `mensajes`
---
-ALTER TABLE `mensajes`
-  ADD CONSTRAINT `mensajes_ibfk_1` FOREIGN KEY (`fk_idPersona`) REFERENCES `personas` (`id`),
-  ADD CONSTRAINT `mensajes_ibfk_2` FOREIGN KEY (`fk_idEjemplar`) REFERENCES `ejemplares` (`id`);
-
---
--- Filtros para la tabla `personas`
---
-ALTER TABLE `personas`
-  ADD CONSTRAINT `personas_ibfk_1` FOREIGN KEY (`fk_idCredenciales`) REFERENCES `credenciales` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

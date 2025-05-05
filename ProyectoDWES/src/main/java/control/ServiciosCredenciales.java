@@ -54,6 +54,10 @@ public class ServiciosCredenciales {
 		public Credenciales findByUsuario(String usuario) {
 			return CredencialesDao.findByUsu(usuario);
 		}
+		
+		public String nombreUsuario (Long id) {
+			return CredencialesDao.findById(id).getUsuario();
+		}
 
 		public List<Credenciales> findAll(){
 			return CredencialesDao.findAll();

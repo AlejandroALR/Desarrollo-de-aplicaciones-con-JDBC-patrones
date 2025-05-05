@@ -48,7 +48,7 @@ public class FachadaViveroMensajes {
 
 			try {
 				opcion = in.nextInt();
-				if (opcion < 1 || opcion > 3) {
+				if (opcion < 0 || opcion > 2) {
 					System.out.println("Opcion no valida. Ingresa un numero valido");
 					continue;
 				}
@@ -60,8 +60,6 @@ public class FachadaViveroMensajes {
 				case 2:
 					this.menuFiltrarMensajes();
 					break;
-            	case 0: System.out.println("Gracias por utilizar este programa!");
-        			break;
 				}
 
 			} catch (InputMismatchException e) {
@@ -123,11 +121,11 @@ public class FachadaViveroMensajes {
 		do {
 			System.out.println("-+-MENU DE FILTRAR MENSAJES-+-");
 			System.out.println("1 - Filtrar un Nuevo Mensaje");
-			System.out.println("2 - VOLVER");
+			System.out.println("0 - VOLVER");
 
 			try {
 				opcion = in.nextInt();
-				if (opcion < 1 || opcion > 2) {
+				if (opcion < 0 || opcion > 1) {
 					System.out.println("Opcion no valida. Ingresa un numero valido");
 					continue;
 				}
@@ -136,15 +134,13 @@ public class FachadaViveroMensajes {
 				case 1:
 					this.filtrarMensajes();
 					break;
-				case 2:
-					break;
 				}
 
 			} catch (InputMismatchException e) {
 				System.out.println("ERROR - Ingresa un numero VALIDO");
 				in.nextLine();
 			}
-		} while (opcion != 2);
+		} while (opcion != 0);
 	}
 
 	public void filtrarMensajes() {

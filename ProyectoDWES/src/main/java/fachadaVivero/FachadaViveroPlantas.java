@@ -46,7 +46,7 @@ public class FachadaViveroPlantas {
 
 			try {
 				opcion = in.nextInt();
-				if (opcion < 1 || opcion > 2) {
+				if (opcion < 0 || opcion > 2) {
 					System.out.println("Opcion no valida. Ingresa un numero valido");
 					continue;
 				}

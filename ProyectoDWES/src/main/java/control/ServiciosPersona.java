@@ -33,7 +33,7 @@ public class ServiciosPersona {
 		return PersonaDao.findByEmail(email);
 	}
 	
-	public Persona findById(int id) {
+	public Persona findById(Long id) {
 		return PersonaDao.findById(id);
 	}
 

@@ -49,7 +49,7 @@ public class FachadaViveroEjemplares {
 			try {
 				opcion = in.nextInt();
 				in.nextLine();
-				if (opcion < 1 || opcion > 3) {
+				if (opcion < 0 || opcion > 3) {
 					System.out.println("Opcion no valida. Ingresa un numero valido");
 					continue;
 				}

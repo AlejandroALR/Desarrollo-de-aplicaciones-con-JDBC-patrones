@@ -7,6 +7,7 @@ import conexion.ConexionBBDD;
 import dao.EjemplarDao;
 import modelo.Ejemplar;
 import modelo.Mensaje;
+import modelo.Persona;
 import modelo.Planta;
 
 public class ServiciosEjemplar {
@@ -29,7 +30,11 @@ public class ServiciosEjemplar {
 		    ej.setNombre(ej.getNombre() + nuevoId);
 		    this.actualizarEjemplar(ej);
 
-		    Mensaje m = new Mensaje("mensaje ", LocalDateTime.now(), fk_IdPersona, ej.getId());
+		    
+		    
+		    Persona per = Controlador.getServicios().getServiciosPersona().findById(fk_IdPersona);
+		    String nombreusu = Controlador.getServicios().getServiciosCredenciales().nombreUsuario(per.getfk_idCredenciales());
+		    Mensaje m = new Mensaje(""+ nombreusu + " insertó el ejemplar " + ej.getNombre() + " el " + LocalDateTime.now(), LocalDateTime.now(), fk_IdPersona,  + ej.getId());
 		    Controlador.getServicios().getServiciosMensaje().insertarMensaje(m);
 		}
 		
@@ -38,7 +43,7 @@ public class ServiciosEjemplar {
 		}
 
 		private int calcularIdAcordeAltipoDePlanta(String getfk_codPlanta) {
-			return EjemplarDao.calcularIdAcordeAltipoDePlanta(getfk_codPlanta) + 1;
+			return EjemplarDao.calcularIdAcordeAltipoDePlanta(getfk_codPlanta);
 			
 		}
 

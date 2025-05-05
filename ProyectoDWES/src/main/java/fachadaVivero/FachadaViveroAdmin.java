@@ -10,6 +10,8 @@ import control.ServiciosMensaje;
 import control.ServiciosPersona;
 import control.ServiciosPlanta;
 import control.ServiciosViveroCon;
+import modelo.Credenciales;
+import modelo.Persona;
 
 public class FachadaViveroAdmin {
 
@@ -52,7 +54,7 @@ public class FachadaViveroAdmin {
 			try {
 				opcion = in.nextInt();
 
-				if (opcion < 1 || opcion > 7) {
+				if (opcion < 0 || opcion > 7) {
 					System.out.println("Opción incorrecta.");
 					continue;
 				}
@@ -112,6 +114,23 @@ public class FachadaViveroAdmin {
 		} while (email.isEmpty() || !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"));
 
 		Controlador.getServicios().getServiciosPersona().registrarNuevaPersona(nombre, email);
+		
+		
+		do {
+			System.out.println("Password:");
+			password = in.nextLine().trim();
+			if (password.isEmpty() || !);
+		} while ());
+		
+		
+		Credenciales c = new Credenciales();
+		Persona per = Controlador.getServicios().getServiciosPersona().findByEmail(email);
+		c.setfk_idPersona(per.getId());
+		c.setPassword(password);
+		c.setUsuario(usuario);
+		Controlador.getServicios().getServiciosCredenciales().insertar(c);
+		
+		
 
 		System.out.println("Persona registrada correctamente.");
 	}

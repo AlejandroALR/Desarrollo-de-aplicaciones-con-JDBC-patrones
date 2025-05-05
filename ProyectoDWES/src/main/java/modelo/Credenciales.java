@@ -5,7 +5,7 @@ public class Credenciales {
     private String usuario;
     private String password;
     private Long fk_idPersona;
-
+    public Credenciales() {}
     public Credenciales(String usuario, String password, Long fk_idPersona) {
         this.usuario = usuario;
         this.password = password;

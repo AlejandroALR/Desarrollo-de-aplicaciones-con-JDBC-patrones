@@ -43,6 +43,21 @@ public class CredencialesDao {
 		return null;
 		}
 	
+	
+	public Credenciales findById(Long id) {
+		try {
+			ps = con.prepareStatement("SELECT * FROM credenciales where id=?");
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return new Credenciales(rs.getString(2), rs.getString(3),rs.getLong(1));
+			}
+		} catch (SQLException e) {
+			System.out.println("Error al buscar usuario." + e.getMessage());
+		}
+		return null;
+		}
+	
 	public List<Credenciales> findAll() {
 		List<Credenciales> listaCredenciales = new ArrayList<Credenciales>();
 		try {

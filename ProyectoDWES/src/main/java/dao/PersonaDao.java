@@ -33,14 +33,15 @@ public class PersonaDao {
     }
     
     
-	public Persona findById(int id) {
+	public Persona findById(Long id) {
 		try {
 			
 			ps = con.prepareStatement("SELECT * FROM personas WHERE id=?");
-			ps.setInt(1, id);
+			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return new Persona(rs.getString(2), rs.getString(3));
+				
+				 return new Persona(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getLong(4));
 
 		} catch (SQLException e) {
 			System.out.println("Error al consultar por id " + e.getMessage());
