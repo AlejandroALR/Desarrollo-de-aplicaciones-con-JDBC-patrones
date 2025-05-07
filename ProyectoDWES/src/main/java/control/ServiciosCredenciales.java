@@ -47,7 +47,7 @@ public class ServiciosCredenciales {
 		}
 		
 		
-		public int insertar(Credenciales c) {
+		public long insertarCredenciales(Credenciales c) {
 			return CredencialesDao.insertarCredenciales(c);
 		}
 
@@ -68,17 +68,16 @@ public class ServiciosCredenciales {
 			Long id = Controlador.getServicios().getServiciosPersona().findByEmail(email).getId();
 			Credenciales c = new Credenciales(usuario, password, id);
 			
-		this.insertar(c);
+		this.insertarCredenciales(c);
 		}
 		
+		public boolean usuarioExiste(String usuario) {
+			return CredencialesDao.usuarioExiste(usuario);
+		}	
+}
+
 //		public long insertarCredencial(String usuario, String password, Long idPersona) {
 //			return credencialesDao.insertarCredenciales(usuario, password, idPersona);
 //
 //		}
 //		
-//		public boolean usuarioExist(String usuario) {
-//			return credencialesDao.usuarioExist(usuario);
-//		}
-		
-		
-}

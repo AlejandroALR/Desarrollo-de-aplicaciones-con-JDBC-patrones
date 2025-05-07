@@ -15,18 +15,65 @@ public class CredencialesDao {
         this.con = con;
     }
  
-	public int insertarCredenciales(Credenciales c) {
-		try {
-			ps = con.prepareStatement("INSERT INTO credenciales (usuario, password, fk_idPersona) VALUES (?,?,?)");
-			ps.setString(1, c.getUsuario());
-			ps.setString(2, c.getPassword());
-			ps.setLong(3, c.getfk_idPersona());
-			return ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("Error al insertar los credenciales " + e.getMessage());
-		}
-		return 0;
+//	public int insertarCredenciales(Credenciales c) {
+//		try {
+//			ps = con.prepareStatement("INSERT INTO credenciales (usuario, password, fk_idPersona) VALUES (?,?,?)");
+//			ps.setString(1, c.getUsuario());
+//			ps.setString(2, c.getPassword());
+//			ps.setLong(3, c.getfk_idPersona());
+//			return ps.executeUpdate();
+//		} catch (SQLException e) {
+//			System.out.println("Error al insertar los credenciales " + e.getMessage());
+//		}
+//		return 0;
+//	}
+    
+    public long insertarCredenciales(Credenciales c) {
+        try {
+            ps = con.prepareStatement(
+                "INSERT INTO credenciales (usuario, password, fk_idPersona) VALUES (?, ?, ?)",
+                PreparedStatement.RETURN_GENERATED_KEYS
+            );
+            ps.setString(1, c.getUsuario());
+            ps.setString(2, c.getPassword());
+            ps.setLong(3, c.getfk_idPersona());
+
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas == 0) {
+                throw new SQLException("No se pudo insertar la credencial.");
+            }
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getLong(1);
+                } else {
+                    throw new SQLException("No se generó ningún ID para la credencial.");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al insertar las credenciales: " + e.getMessage());
+        }
+        return -1;
+    }
+	
+	public boolean usuarioExiste(String usuario) {
+	    try {
+	        ps = con.prepareStatement("SELECT COUNT(*) FROM credenciales WHERE usuario = ?");
+	        ps.setString(1, usuario);
+	        rs = ps.executeQuery();
+
+	        if (rs.next()) {
+	            return rs.getInt(1) > 0;
+	        }
+
+	    } catch (SQLException e) {
+	        System.out.println("Error al verificar si el usuario existe: " + e.getMessage());
+	    }
+	    return false;
 	}
+
 	
 
 	public Credenciales findByUsu(String usuario) {

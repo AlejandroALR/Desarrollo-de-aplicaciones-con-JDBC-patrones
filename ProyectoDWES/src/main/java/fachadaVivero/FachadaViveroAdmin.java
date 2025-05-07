@@ -90,7 +90,7 @@ public class FachadaViveroAdmin {
 
 	public void registroPersona() {
 		Scanner in = new Scanner(System.in);
-		String nombre, email;
+		String nombre, email, usuario, password;
 
 		System.out.println("-+-REGISTRO DE NUEVO USUARIO-+-");
 
@@ -112,26 +112,45 @@ public class FachadaViveroAdmin {
 				System.out.println("Introduce un email valido.");
 			}
 		} while (email.isEmpty() || !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"));
+		
+	    do {
+	        System.out.println("Nombre de usuario:");
+	        usuario = in.nextLine().trim();
+	        if (usuario.isEmpty() || usuario.length() < 3 || usuario.length() > 20) {
+	            System.out.println("El nombre de usuario debe tener entre 3 y 20 caracteres.");
+	        } else if (Controlador.getServicios().getServiciosCredenciales().usuarioExiste(usuario)) {
+	            System.out.println("Ese nombre de usuario ya está en uso.");
+	            usuario = "";
+	        }
+	    } while (usuario.isEmpty());
+
+	    do {
+	        System.out.println("Password:");
+	        password = in.nextLine().trim();
+	        if (password.isEmpty() || password.length() < 4) {
+	            System.out.println("La password debe tener al menos 4 caracteres.");
+	        }
+	    } while (password.isEmpty() || password.length() < 4);
 
 		Controlador.getServicios().getServiciosPersona().registrarNuevaPersona(nombre, email);
-		
-		
-		do {
-			System.out.println("Password:");
-			password = in.nextLine().trim();
-			if (password.isEmpty() || !);
-		} while ());
-		
+		Persona per = Controlador.getServicios().getServiciosPersona().findByEmail(email);
 		
 		Credenciales c = new Credenciales();
-		Persona per = Controlador.getServicios().getServiciosPersona().findByEmail(email);
 		c.setfk_idPersona(per.getId());
 		c.setPassword(password);
 		c.setUsuario(usuario);
-		Controlador.getServicios().getServiciosCredenciales().insertar(c);
-		
+		long idCredenciales = Controlador.getServicios().getServiciosCredenciales().insertarCredenciales(c);
+		Controlador.getServicios().getServiciosPersona().actualizarFkCredenciales(per.getId(), idCredenciales);
+
 		
 
 		System.out.println("Persona registrada correctamente.");
 	}
 }
+
+
+//do {
+//System.out.println("Password:");
+//password = in.nextLine().trim();
+//if (password.isEmpty() || !);
+//} while ());

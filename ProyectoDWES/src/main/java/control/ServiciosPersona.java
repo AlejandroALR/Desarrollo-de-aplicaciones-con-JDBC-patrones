@@ -48,4 +48,9 @@ public class ServiciosPersona {
 		
 		this.insertarPersona(pe);
 	}
+	
+	public void actualizarFkCredenciales(long idPersona, long idCredenciales) {
+	    PersonaDao.actualizarFkCredenciales(idPersona, idCredenciales);
+	}
+
 }

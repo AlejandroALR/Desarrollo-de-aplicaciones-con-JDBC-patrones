@@ -83,6 +83,18 @@ public class PersonaDao {
 		}
 		return null;
 	}
+	
+	public void actualizarFkCredenciales(long idPersona, long idCredenciales) {
+	    try {
+	        ps = con.prepareStatement("UPDATE personas SET fk_idCredenciales = ? WHERE id = ?");
+	        ps.setLong(1, idCredenciales);
+	        ps.setLong(2, idPersona);
+	        ps.executeUpdate();
+	    } catch (SQLException e) {
+	        System.out.println("Error al actualizar fk_idCredenciales: " + e.getMessage());
+	    }
+	}
+}
     
 //    public int eliminarPersona (Persona pe) {
 //    	try {
@@ -112,4 +124,3 @@ public class PersonaDao {
 //		return false;
 //
 //	}
-}
