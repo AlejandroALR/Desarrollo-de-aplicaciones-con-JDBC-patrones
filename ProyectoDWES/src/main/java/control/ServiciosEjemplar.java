@@ -29,8 +29,6 @@ public class ServiciosEjemplar {
 		    int nuevoId = this.calcularIdAcordeAltipoDePlanta(ej.getfk_planta());
 		    ej.setNombre(ej.getNombre() + nuevoId);
 		    this.actualizarEjemplar(ej);
-
-		    
 		    
 		    Persona per = Controlador.getServicios().getServiciosPersona().findById(fk_IdPersona);
 		    String nombreusu = Controlador.getServicios().getServiciosCredenciales().nombreUsuario(per.getfk_idCredenciales());

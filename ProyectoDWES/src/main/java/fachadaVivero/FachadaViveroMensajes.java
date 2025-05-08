@@ -1,5 +1,9 @@
 package fachadaVivero;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -58,7 +62,7 @@ public class FachadaViveroMensajes {
 					this.registrarMensaje();
 					break;
 				case 2:
-					this.menuFiltrarMensajes();
+					this.filtrarMensajes();
 					break;
 				}
 
@@ -113,35 +117,91 @@ public class FachadaViveroMensajes {
 	    Controlador.getServicios().getServiciosMensaje().registrarMensaje(idEjemplar, idPersona, mensaje);
 	    System.out.println("Mensaje registrado correctamente.");
 	}
+	
+//	public void filtrarMensajes() {
+//	    Scanner in = new Scanner(System.in);
+//	    boolean continuar = true;
+//
+//	    do {
+//	        System.out.println("\n--- Filtro de Mensajes ---");
+//	        System.out.println("1 - Filtrar por persona");
+//	        System.out.println("2 - Filtrar por rango de fechas");
+//	        System.out.println("3 - Filtrar por tipo de planta");
+//	        System.out.println("0 - Salir");
+//	        System.out.print("Elige una opción: ");
+//	        String opcion = in.nextLine().trim();
+//
+//	        List<Mensaje> mensajesFiltrados = new ArrayList<>();
+//	        List<Mensaje> mensajes = servMens.findAll();
+//
+//	        if (mensajes == null) {
+//	            System.out.println("Error al recuperar los mensajes.");
+//	            return;
+//	        }
+//
+//	        switch (opcion) {
+//	            case "1": // Filtrar por persona
+//	                System.out.print("Introduce el nombre de usuario: ");
+//	                String nombreUsuario = in.nextLine().trim().toLowerCase();
+//	                for (Mensaje m : mensajes) {
+//	                    String nombre = Controlador.getServicios()
+//	                        .getServiciosCredenciales()
+//	                        .nombreUsuario(m.getfk_idPersona());
+//	                    if (nombre != null && nombre.toLowerCase().contains(nombreUsuario)) {
+//	                        mensajesFiltrados.add(m);
+//	                    }
+//	                }
+//	                break;
+//
+//	            case "2": // Filtrar por fechas
+//	                System.out.print("Introduce la fecha de inicio (yyyy-MM-dd): ");
+//	                String inicioStr = in.nextLine();
+//	                System.out.print("Introduce la fecha de fin (yyyy-MM-dd): ");
+//	                String finStr = in.nextLine();
+//	                try {
+//	                    LocalDateTime inicio = LocalDate.parse(inicioStr).atStartOfDay();
+//	                    LocalDateTime fin = LocalDate.parse(finStr).atTime(23, 59, 59);
+//	                    for (Mensaje m : mensajes) {
+//	                        if (m.getfechaHora().isAfter(inicio) && m.getfechaHora().isBefore(fin)) {
+//	                            mensajesFiltrados.add(m);
+//	                        }
+//	                    }
+//	                } catch (DateTimeParseException e) {
+//	                    System.out.println("Formato de fecha incorrecto.");
+//	                }
+//	                break;
+//
+//	            case "3": // Filtrar por tipo de planta
+//	                System.out.print("Introduce el código de la planta (ej: ROSA): ");
+//	                String codPlanta = in.nextLine().trim().toUpperCase();
+//	                for (Mensaje m : mensajes) {
+//	                    Ejemplar ej = Controlador.getServicios().getServiciosEjemplar().findById(m.getfk_idEjemplar());
+//	                    if (ej != null && ej.getfk_planta().equalsIgnoreCase(codPlanta)) {
+//	                        mensajesFiltrados.add(m);
+//	                    }
+//	                }
+//	                break;
+//
+//	            case "0":
+//	                continuar = false;
+//	                continue;
+//
+//	            default:
+//	                System.out.println("Opción no válida.");
+//	                continue;
+//	        }
+//
+//	        if (mensajesFiltrados.isEmpty()) {
+//	            System.out.println("No se encontraron mensajes con ese criterio.");
+//	        } else {
+//	            for (Mensaje m : mensajesFiltrados) {
+//	                System.out.println("Id: " + m.getId() + " - Mensaje: " + m.getMensaje() + " - Fecha: " + m.getfechaHora());
+//	            }
+//	        }
+//
+//	    } while (continuar);
+//	}
 
-
-	public void menuFiltrarMensajes() {
-		int opcion = 0;
-
-		do {
-			System.out.println("-+-MENU DE FILTRAR MENSAJES-+-");
-			System.out.println("1 - Filtrar un Nuevo Mensaje");
-			System.out.println("0 - VOLVER");
-
-			try {
-				opcion = in.nextInt();
-				if (opcion < 0 || opcion > 1) {
-					System.out.println("Opcion no valida. Ingresa un numero valido");
-					continue;
-				}
-
-				switch (opcion) {
-				case 1:
-					this.filtrarMensajes();
-					break;
-				}
-
-			} catch (InputMismatchException e) {
-				System.out.println("ERROR - Ingresa un numero VALIDO");
-				in.nextLine();
-			}
-		} while (opcion != 0);
-	}
 
 	public void filtrarMensajes() {
 		Scanner in = new Scanner(System.in);
@@ -179,20 +239,5 @@ public class FachadaViveroMensajes {
 			}
 		} while (continuar);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

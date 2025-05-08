@@ -6,6 +6,13 @@ public class Credenciales {
     private String password;
     private Long fk_idPersona;
     public Credenciales() {}
+    
+    public Credenciales(Long id,String usuario, String password, Long fk_idPersona) {
+        this.id = id;
+    	this.usuario = usuario;
+        this.password = password;
+        this.fk_idPersona = fk_idPersona;
+    }
     public Credenciales(String usuario, String password, Long fk_idPersona) {
         this.usuario = usuario;
         this.password = password;

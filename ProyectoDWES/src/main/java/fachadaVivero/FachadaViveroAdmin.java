@@ -142,7 +142,6 @@ public class FachadaViveroAdmin {
 		long idCredenciales = Controlador.getServicios().getServiciosCredenciales().insertarCredenciales(c);
 		Controlador.getServicios().getServiciosPersona().actualizarFkCredenciales(per.getId(), idCredenciales);
 
-		
 
 		System.out.println("Persona registrada correctamente.");
 	}

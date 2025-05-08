@@ -112,5 +112,17 @@ public class MensajeDao {
 	    }
 	    return lista;
 	}
+	
+	public List<Mensaje> findByCodigoPlanta() {
+		return null;
+		}
+	
+	public List<Mensaje> findByEntreFechas(){
+		return null;
+		}
+	
+	public List<Mensaje> findByNombrePersona(){
+		return null;
+		}
 
 }

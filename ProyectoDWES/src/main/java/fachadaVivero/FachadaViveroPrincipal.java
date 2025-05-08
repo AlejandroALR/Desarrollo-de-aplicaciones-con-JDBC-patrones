@@ -79,7 +79,8 @@ public class FachadaViveroPrincipal {
 		
 		if(c.getUsuario().equals("admin") && c.getPassword().equals("admin")) {
 			System.out.println("Bienvenido admin");
-			c.setfk_idPersona(0L);
+			c.setId(1L);
+			c.setfk_idPersona(1L);
 			this.credenciales = c;
 			FachadaViveroPrincipal.admin.menuAdmin();	
 		} else {
