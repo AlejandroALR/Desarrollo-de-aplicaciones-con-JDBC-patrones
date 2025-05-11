@@ -146,10 +146,3 @@ public class FachadaViveroAdmin {
 		System.out.println("Persona registrada correctamente.");
 	}
 }
-
-
-//do {
-//System.out.println("Password:");
-//password = in.nextLine().trim();
-//if (password.isEmpty() || !);
-//} while ());

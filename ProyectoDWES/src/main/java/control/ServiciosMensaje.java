@@ -37,4 +37,26 @@ public class ServiciosMensaje {
 		Mensaje m = new Mensaje(mensaje, LocalDateTime.now(), fk_idPersona, id);
 		this.insertarMensaje(m);
 	}
+	
+	public int contarMensajesPorEjemplar(Long id) {
+	    return MensajeDao.contarMensajesPorEjemplar(id);
+	}
+
+	public LocalDateTime obtenerUltimaFechaMensaje(Long id) {
+	    return MensajeDao.obtenerUltimaFechaMensaje(id);
+	}
+
+	
+	public List<Mensaje> findByNombrePersona(String nombre) {
+	    return MensajeDao.findByNombrePersona(nombre);
+	}
+
+	public List<Mensaje> findByEntreFechas(LocalDateTime inicio, LocalDateTime fin) {
+	    return MensajeDao.findByEntreFechas(inicio, fin);
+	}
+
+	public List<Mensaje> findByCodigoPlanta(String codigo) {
+	    return MensajeDao.findByCodigoPlanta(codigo);
+	}
+
 }

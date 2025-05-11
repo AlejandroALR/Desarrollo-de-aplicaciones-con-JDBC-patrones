@@ -1,8 +1,12 @@
 package fachadaVivero;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import control.Controlador;
 import control.ServiciosCredenciales;
@@ -74,10 +78,7 @@ public class FachadaViveroEjemplares {
 	}
 
 	public void registrarEjemplar() {
-//	    if (portal.getCredenciales() == null) {
-//	        System.out.println("Debes iniciar sesión para registrar un ejemplar.");
-//	        return;
-//	    }
+		
 		System.out.println("Seleccione la planta de la cual desea registrar un ejemplar nuevo");
 		System.out.println();
 		portal.menuPlantas();
@@ -103,6 +104,7 @@ public class FachadaViveroEjemplares {
 	}
 
 	public void verMensajes() {
+		
 	    System.out.println("Seleccione el ejemplar del cual desea mostrar sus mensajes");
 	    System.out.println();
 	    Controlador.getServicios().getServiciosEjemplar().mostrarEjemplares();  // Ya muestra los nombres
@@ -129,28 +131,61 @@ public class FachadaViveroEjemplares {
 	}
 
 	
+//	public void filtrarEjemplares() {
+//		
+//		Scanner in = new Scanner(System.in);
+//
+//		System.out.println("Introduce el nombre del tipo de planta que deseas buscar:");
+//		String nombrePlanta = in.nextLine().trim().toLowerCase();
+//
+//		List<Ejemplar> ejemplares = servEjem.findAll();
+//
+//		boolean encontrado = false;
+//
+//		for (Ejemplar e : ejemplares) {
+//			Planta p = Controlador.getServicios().getServiciosPlanta().findByCod(e.getfk_planta());
+//			if (p.getNombreComun().toLowerCase().contains(nombrePlanta)) {
+//				System.out.println("Id: " + e.getId() + " - Nombre Comun: " + p.getNombreComun() + " ("
+//						+ p.getNombreCientifico() + ")");
+//				encontrado = true;
+//			}
+//		}
+//
+//		if (!encontrado) {
+//			System.out.println("No se encontraron ejemplares con plantas que coincidan con ese nombre.");
+//		}
+//	}
+	
 	public void filtrarEjemplares() {
-		Scanner in = new Scanner(System.in);
+	    System.out.println("Introduce uno o varios nombres comunes de planta separados por espacio (ej: rosa olivo margarita):");
+	    String entrada = in.nextLine().trim().toLowerCase();
 
-		System.out.println("Introduce el nombre del tipo de planta que deseas buscar:");
-		String nombrePlanta = in.nextLine().trim().toLowerCase();
+	    String[] filtros = entrada.split("\\s+");
+	    Set<String> filtrosSet = new HashSet<>(Arrays.asList(filtros));
 
-		List<Ejemplar> ejemplares = servEjem.findAll();
+	    List<Ejemplar> ejemplares = servEjem.findAll();
+	    boolean encontrado = false;
 
-		boolean encontrado = false;
+	    for (Ejemplar ej : ejemplares) {
+	        Planta p = servPlan.findByCod(ej.getfk_planta());
+	        if (p != null && filtrosSet.contains(p.getNombreComun().toLowerCase())) {
+	            encontrado = true;
+	            int numMensajes = servMens.contarMensajesPorEjemplar(ej.getId());
+	            LocalDateTime ultimaFecha = servMens.obtenerUltimaFechaMensaje(ej.getId());
 
-		for (Ejemplar e : ejemplares) {
-			Planta p = Controlador.getServicios().getServiciosPlanta().findByCod(e.getfk_planta());
-			if (p.getNombreComun().toLowerCase().contains(nombrePlanta)) {
-				System.out.println("Id: " + e.getId() + " - Nombre Comun: " + p.getNombreComun() + " ("
-						+ p.getNombreCientifico() + ")");
-				encontrado = true;
-			}
-		}
+	            System.out.printf("Ejemplar: %-20s | Tipo: %-10s | Mensajes: %3d | Último mensaje: %s\n",
+	                    ej.getNombre(),
+	                    p.getNombreComun(),
+	                    numMensajes,
+	                    (ultimaFecha != null ? ultimaFecha.toString() : "Sin mensajes"));
+	        }
+	    }
 
-		if (!encontrado) {
-			System.out.println("No se encontraron ejemplares con plantas que coincidan con ese nombre.");
-		}
+	    if (!encontrado) {
+	        System.out.println("No se encontraron ejemplares para los tipos de planta introducidos.");
+	    }
 	}
+
+
 
 }

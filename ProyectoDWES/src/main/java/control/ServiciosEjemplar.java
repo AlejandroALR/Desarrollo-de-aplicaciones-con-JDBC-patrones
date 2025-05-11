@@ -36,6 +36,43 @@ public class ServiciosEjemplar {
 		    Controlador.getServicios().getServiciosMensaje().insertarMensaje(m);
 		}
 		
+//		public void registrarEjemplar(Planta p, Long fk_IdPersona) {
+//		    Ejemplar ej = new Ejemplar(p.getCodigo() + "_", p.getCodigo());
+//
+//		    long idGenerado = this.insertarEjemplar(ej);
+//		    ej.setId(idGenerado);
+//
+//		    int nuevoId = this.calcularIdAcordeAltipoDePlanta(ej.getfk_planta());
+//		    ej.setNombre(ej.getNombre() + nuevoId);
+//		    this.actualizarEjemplar(ej);
+//
+//		    // Validación de existencia de persona
+//		    Persona per = Controlador.getServicios().getServiciosPersona().findById(fk_IdPersona);
+//		    if (per == null) {
+//		        System.out.println("Error: La persona con ID " + fk_IdPersona + " no existe.");
+//		        return;
+//		    }
+//
+//		    // Validación de existencia de credenciales vinculadas
+//		    Long idCred = per.getfk_idCredenciales();
+//		    if (idCred == null) {
+//		        System.out.println("Error: La persona no tiene credenciales asociadas.");
+//		        return;
+//		    }
+//
+//		    String nombreusu = Controlador.getServicios().getServiciosCredenciales().nombreUsuario(idCred);
+//
+//		    // Registro del mensaje
+//		    Mensaje m = new Mensaje(
+//		        nombreusu + " insertó el ejemplar " + ej.getNombre() + " el " + LocalDateTime.now(),
+//		        LocalDateTime.now(),
+//		        fk_IdPersona,
+//		        ej.getId()
+//		    );
+//		    Controlador.getServicios().getServiciosMensaje().insertarMensaje(m);
+//		}
+
+		
 		private int actualizarEjemplar(Ejemplar ej) {
 			return EjemplarDao.actualizar(ej);
 		}

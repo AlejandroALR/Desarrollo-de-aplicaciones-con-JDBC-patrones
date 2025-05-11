@@ -118,126 +118,108 @@ public class FachadaViveroMensajes {
 	    System.out.println("Mensaje registrado correctamente.");
 	}
 	
-//	public void filtrarMensajes() {
-//	    Scanner in = new Scanner(System.in);
-//	    boolean continuar = true;
-//
-//	    do {
-//	        System.out.println("\n--- Filtro de Mensajes ---");
-//	        System.out.println("1 - Filtrar por persona");
-//	        System.out.println("2 - Filtrar por rango de fechas");
-//	        System.out.println("3 - Filtrar por tipo de planta");
-//	        System.out.println("0 - Salir");
-//	        System.out.print("Elige una opción: ");
-//	        String opcion = in.nextLine().trim();
-//
-//	        List<Mensaje> mensajesFiltrados = new ArrayList<>();
-//	        List<Mensaje> mensajes = servMens.findAll();
-//
-//	        if (mensajes == null) {
-//	            System.out.println("Error al recuperar los mensajes.");
-//	            return;
-//	        }
-//
-//	        switch (opcion) {
-//	            case "1": // Filtrar por persona
-//	                System.out.print("Introduce el nombre de usuario: ");
-//	                String nombreUsuario = in.nextLine().trim().toLowerCase();
-//	                for (Mensaje m : mensajes) {
-//	                    String nombre = Controlador.getServicios()
-//	                        .getServiciosCredenciales()
-//	                        .nombreUsuario(m.getfk_idPersona());
-//	                    if (nombre != null && nombre.toLowerCase().contains(nombreUsuario)) {
-//	                        mensajesFiltrados.add(m);
-//	                    }
-//	                }
-//	                break;
-//
-//	            case "2": // Filtrar por fechas
-//	                System.out.print("Introduce la fecha de inicio (yyyy-MM-dd): ");
-//	                String inicioStr = in.nextLine();
-//	                System.out.print("Introduce la fecha de fin (yyyy-MM-dd): ");
-//	                String finStr = in.nextLine();
-//	                try {
-//	                    LocalDateTime inicio = LocalDate.parse(inicioStr).atStartOfDay();
-//	                    LocalDateTime fin = LocalDate.parse(finStr).atTime(23, 59, 59);
-//	                    for (Mensaje m : mensajes) {
-//	                        if (m.getfechaHora().isAfter(inicio) && m.getfechaHora().isBefore(fin)) {
-//	                            mensajesFiltrados.add(m);
-//	                        }
-//	                    }
-//	                } catch (DateTimeParseException e) {
-//	                    System.out.println("Formato de fecha incorrecto.");
-//	                }
-//	                break;
-//
-//	            case "3": // Filtrar por tipo de planta
-//	                System.out.print("Introduce el código de la planta (ej: ROSA): ");
-//	                String codPlanta = in.nextLine().trim().toUpperCase();
-//	                for (Mensaje m : mensajes) {
-//	                    Ejemplar ej = Controlador.getServicios().getServiciosEjemplar().findById(m.getfk_idEjemplar());
-//	                    if (ej != null && ej.getfk_planta().equalsIgnoreCase(codPlanta)) {
-//	                        mensajesFiltrados.add(m);
-//	                    }
-//	                }
-//	                break;
-//
-//	            case "0":
-//	                continuar = false;
-//	                continue;
-//
-//	            default:
-//	                System.out.println("Opción no válida.");
-//	                continue;
-//	        }
-//
-//	        if (mensajesFiltrados.isEmpty()) {
-//	            System.out.println("No se encontraron mensajes con ese criterio.");
-//	        } else {
-//	            for (Mensaje m : mensajesFiltrados) {
-//	                System.out.println("Id: " + m.getId() + " - Mensaje: " + m.getMensaje() + " - Fecha: " + m.getfechaHora());
-//	            }
-//	        }
-//
-//	    } while (continuar);
-//	}
-
-
 	public void filtrarMensajes() {
-		Scanner in = new Scanner(System.in);
-		String palabraClave;
-		boolean continuar = true;
+	    Scanner in = new Scanner(System.in);
+	    boolean salir = false;
 
-		do {
-			System.out.println("Introduce una palabra clave para buscar en los mensajes: ");
-			palabraClave = in.nextLine().trim().toLowerCase();
+	    while (!salir) {
+	        System.out.println("-+- FILTRAR MENSAJES -+-");
+	        System.out.println("1 - Por persona");
+	        System.out.println("2 - Por rango de fechas");
+	        System.out.println("3 - Por tipo de planta");
+	        System.out.println("0 - VOLVER");
+	        System.out.print("Selecciona una opción: ");
 
-			List<Mensaje> mensajes = servMens.findAll();
-			
-	        if (mensajes == null) {
-	            System.out.println("Error al recuperar los mensajes. Intenta más tarde.");
-	            return;
+	        String opcion = in.nextLine();
+
+	        switch (opcion) {
+	            case "1":
+	                System.out.print("Introduce el nombre de la persona: ");
+	                String nombrePersona = in.nextLine().trim();
+	                List<Mensaje> mensajesPorPersona = servMens.findByNombrePersona(nombrePersona);
+	                mostrarMensajes(mensajesPorPersona);
+	                break;
+
+	            case "2":
+	                System.out.print("Fecha inicio (YYYY-MM-DD): ");
+	                String fechaInicioStr = in.nextLine().trim();
+	                System.out.print("Fecha fin (YYYY-MM-DD): ");
+	                String fechaFinStr = in.nextLine().trim();
+	                try {
+	                    LocalDate fechaInicio = LocalDate.parse(fechaInicioStr);
+	                    LocalDate fechaFin = LocalDate.parse(fechaFinStr);
+	                    List<Mensaje> mensajesEntreFechas = servMens.findByEntreFechas(
+	                        fechaInicio.atStartOfDay(), fechaFin.atTime(23, 59, 59));
+	                    mostrarMensajes(mensajesEntreFechas);
+	                } catch (DateTimeParseException e) {
+	                    System.out.println("Formato de fecha incorrecto.");
+	                }
+	                break;
+
+	            case "3":
+	                System.out.print("Introduce el código de la planta: ");
+	                String codigoPlanta = in.nextLine().trim();
+	                List<Mensaje> mensajesPorPlanta = servMens.findByCodigoPlanta(codigoPlanta);
+	                mostrarMensajes(mensajesPorPlanta);
+	                break;
+
+	            case "0":
+	                salir = true;
+	                break;
+
+	            default:
+	                System.out.println("Opción no válida.");
 	        }
-	        
-			boolean encontrado = false;
-
-			for (Mensaje m : mensajes) {
-				if (m.getMensaje().toLowerCase().contains(palabraClave)) {
-					System.out.println("Id: " + m.getId() + " - Mensaje: " + m.getMensaje());
-					encontrado = true;
-				}
-			}
-
-			if (!encontrado) {
-				System.out.println("No se encontraron mensajes que contengan la palabra introducida.");
-			}
-
-			System.out.println("¿Deseas buscar otra palabra clave? (s/n)");
-			String respuesta = in.nextLine().trim().toLowerCase();
-			if (!respuesta.equals("s")) {
-				continuar = false;
-			}
-		} while (continuar);
+	    }
 	}
 	
+	private void mostrarMensajes(List<Mensaje> mensajes) {
+	    if (mensajes == null || mensajes.isEmpty()) {
+	        System.out.println("No se encontraron mensajes.");
+	        return;
+	    }
+
+	    for (Mensaje m : mensajes) {
+	        System.out.println("ID: " + m.getId() + " | Fecha: " + m.getfechaHora() + " | Mensaje: " + m.getMensaje());
+	    }
+	}
+
+
 }
+
+//	public void filtrarMensajes() {
+//		Scanner in = new Scanner(System.in);
+//		String palabraClave;
+//		boolean continuar = true;
+//
+//		do {
+//			System.out.println("Introduce una palabra clave para buscar en los mensajes: ");
+//			palabraClave = in.nextLine().trim().toLowerCase();
+//
+//			List<Mensaje> mensajes = servMens.findAll();
+//			
+//	        if (mensajes == null) {
+//	            System.out.println("Error al recuperar los mensajes. Intenta más tarde.");
+//	            return;
+//	        }
+//	        
+//			boolean encontrado = false;
+//
+//			for (Mensaje m : mensajes) {
+//				if (m.getMensaje().toLowerCase().contains(palabraClave)) {
+//					System.out.println("Id: " + m.getId() + " - Mensaje: " + m.getMensaje());
+//					encontrado = true;
+//				}
+//			}
+//
+//			if (!encontrado) {
+//				System.out.println("No se encontraron mensajes que contengan la palabra introducida.");
+//			}
+//
+//			System.out.println("¿Deseas buscar otra palabra clave? (s/n)");
+//			String respuesta = in.nextLine().trim().toLowerCase();
+//			if (!respuesta.equals("s")) {
+//				continuar = false;
+//			}
+//		} while (continuar);
+//	}
