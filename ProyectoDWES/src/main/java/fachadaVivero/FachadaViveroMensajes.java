@@ -94,7 +94,7 @@ public class FachadaViveroMensajes {
 	                System.out.println("El ejemplar no existe. Intenta con otro ID.");
 	            }
 	        } catch (NumberFormatException e) {
-	            System.out.println("ERROR - Ingresa un número válido.");
+	            System.out.println("ERROR - Ingresa un numero valido.");
 	            idValid = false;
 	        }
 	    } while (!idValid);
@@ -104,7 +104,7 @@ public class FachadaViveroMensajes {
 	        System.out.println("Mensaje: ");
 	        mensaje = in.nextLine();
 	        if (mensaje.trim().isEmpty()) {
-	            System.out.println("El mensaje no puede estar vacío. Intenta de nuevo.");
+	            System.out.println("El mensaje no puede estar vacio. Intenta de nuevo.");
 	        }
 	    } while (mensaje.trim().isEmpty());
 
@@ -128,7 +128,7 @@ public class FachadaViveroMensajes {
 	        System.out.println("2 - Por rango de fechas");
 	        System.out.println("3 - Por tipo de planta");
 	        System.out.println("0 - VOLVER");
-	        System.out.print("Selecciona una opción: ");
+	        System.out.print("Selecciona una opcion: ");
 
 	        String opcion = in.nextLine();
 
@@ -157,7 +157,7 @@ public class FachadaViveroMensajes {
 	                break;
 
 	            case "3":
-	                System.out.print("Introduce el código de la planta: ");
+	                System.out.print("Introduce el codigo de la planta: ");
 	                String codigoPlanta = in.nextLine().trim();
 	                List<Mensaje> mensajesPorPlanta = servMens.findByCodigoPlanta(codigoPlanta);
 	                mostrarMensajes(mensajesPorPlanta);
@@ -168,7 +168,7 @@ public class FachadaViveroMensajes {
 	                break;
 
 	            default:
-	                System.out.println("Opción no válida.");
+	                System.out.println("Opcion no valida.");
 	        }
 	    }
 	}
