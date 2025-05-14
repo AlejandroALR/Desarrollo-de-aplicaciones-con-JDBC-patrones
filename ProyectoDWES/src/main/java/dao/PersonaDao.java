@@ -95,32 +95,3 @@ public class PersonaDao {
 	    }
 	}
 }
-    
-//    public int eliminarPersona (Persona pe) {
-//    	try {
-//    		ps = con.prepareStatement("delete from persona where id=?");
-//    		ps.setLong(1, pe.getId());
-//    		return ps.executeUpdate();
-//    	}catch(SQLException e) {
-//    		System.out.println("Error al eliminar la persona " + e.getMessage());
-//    	}
-//    	return 0;
-//    }
-
-//  public boolean modificarPersona(Persona p) {
-//		try {
-//
-//			String sql = "UPDATE persona SET email = ?, admin = ?, WHERE id = ?";
-//			PreparedStatement ps = con.prepareStatement(sql);
-//
-//			ps.setString(1, p.getEmail());
-//			ps.setString(2, p.getNombre());
-//			ps.setLong(3, p.getId());
-//
-//			return ps.executeUpdate() > 0;
-//		} catch (SQLException e) {
-//			System.out.println("Error al modificar en persona" + e.getMessage());
-//		}
-//		return false;
-//
-//	}
